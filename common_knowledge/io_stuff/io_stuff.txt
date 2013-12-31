@@ -1,0 +1,89 @@
+1) setw()
+
+   header file to be included: 
+   #include <iomanip>
+
+   we use setw(int) to set the width of the upcoming insertion in the stream.
+
+   for eg:
+
+   int i = 0;
+   int j = 3;
+   int k = 12;
+
+   cout <<"i = " << i << endl;
+   cout <<"j = " << j << endl;
+   cout <<"k = " << k << endl;
+
+   following will be the output:
+
+   printing values with out setw() 
+   with out setw(), a = 10
+   with out setw(), b = 9
+   with out setw(), c = 22222
+   
+
+   printing values with setw() 
+   with setw(5), a =    10
+   with setw(5), b =     9
+   with setw(5), c = 22222
+ 
+  check test1.cpp
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+2) what will happen if setw(3) is used for a variable that has a width of say 5 ?
+eg code:
+
+  int a = 555555;
+  cout <<"val of a = " << setw(3) << a << endl;
+
+  example: test2.cpp
+  nothing happens, if a width is set which is less than the setw(), then setw() is ignored.
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+3) does setw() work on array string ?
+   
+   eg code:
+   char a[] = "bhanj is god";
+   cout << "with setw(20) value of a = " << setw(20) << a << endl;
+   cout << "with out setw() value of a = " << a << endl;
+   cout << "with setw(10) value of a = " << a << endl; 
+
+   test file : test3.cpp
+
+   the results are consistent with what happens in intezers.
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+4) what if multiple setw() are used, will the output be addition of all the setw's the latest one, the first one or what is it ?
+
+eg code:
+
+int main()
+{
+  int a = 10;
+  cout <<"value of a = " << setw(3) << setw(10) << setw(30) << endl;
+
+} 
+
+what will be the out put ?
+
+ans) only the last setw() value is taken into consideration and rest are discarded.
+     test4.cpp
+
+     cout << setw(30) << setw(10) << setw(3) << a << endl;
+
+     will have a feild width of 3.
+
+     while 
+     cout << setw(3) << setw(10) << setw(30) << a << endl;
+
+     will have a feild width of 30.
+
+     since it picks up what ever the last feild width is, not the remaining.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+

@@ -1,0 +1,178 @@
+1) reference is an alias
+2) what ever you do to a object happens to a reference.
+3) a reference has to be initialized when declared, else it will throw an error.
+4) a reference cannot be initialized with a string literal (eg : "bhanj" , 5 etc)
+5) only exeception is when the variable is a const reference.
+6) there is such a thing called "read only reference"
+7) there is no such thing called pointer to a reference.
+
+OPEN QUESTIONS:
+1) how to have a reference as a class variable and what is it used for ? how are they initialized.
+2) how does inheritence work with reference variables in the base class 
+
+--------------------------------------------------------------------------------------------------------------
+
+following questions:
+
+1) can I have a reference to a pointer, if yes, what is the systax of a reference to a pointer.
+ans) yes there is such a thing as reference to a pointer.
+     syntax:
+     int *p = &a;
+     int *&pRef = p; //reference to a pointer
+
+     a reference to a pointer is used instead of a pointer to a pointer.
+
+     int* p = &a;
+     f(p);
+
+     int f(int*& p) ;
+
+     instead of:
+     int* p = &a;
+     f(&p);
+
+     int f(int** p);
+
+
+     some side notes:
+     ----------------
+     a) both int* p and int *p are correct declarations.
+        though int *p is more accurate way to declare.
+
+        => int *&p is correct way to declare.
+
+     b) int* p is fine.
+        (int*) p is an error. 
+        int (*p) is not.
+
+--------------------------------------------------------------------------------------------------------------------
+2) can there be a pointer to a reference ?
+ans) no there can be no pointer to a reference.
+--------------------------------------------------------------------------------------------------------------------
+
+3) can we pass a rval into a place which accepts references ?
+ans) no.
+
+eg:
+
+int f(int &a)
+{}
+
+int main()
+{
+  f(10);
+}
+
+is erronious, since we expect to pass a variable that has a address to it and a temp variable does not.
+
+-------------------------------------------------------------------------------------------------------------------
+
+4) can we initialize a reference with a rvalue ?
+ans) no it is error
+     but we can initialize a constant reference with a rvalue.
+
+     int &a = 10; // error
+     const int &a = 10; // not an error.
+
+---------------------------------------------------------------------------------------------------------------------
+
+5) so can we pass a rval if a function takes a const reference ?
+   like for example
+
+   int f(const int& a)
+   {}
+
+   int main()
+   {
+     f(10);
+   }
+
+   used test4.cpp to test it, it works.
+   summary: we can use a rval to initialize a cont reference.
+   even in a function.
+
+-------------------------------------------------------------------------------------------------------------------------
+
+6) what will happen if we initialize a const reference with a regular variable ? what will be its behavior ?
+ans) guess : error
+eg:
+
+int main()
+{
+  int a = 10;
+  conts int& b = a;
+  b = 12;
+
+  return 0;
+}
+
+ as expected the code gave an error, read only reference is being assigned.
+ used test5.cpp for testing.
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+7) what is a read only reference ?
+ans) a reference that cannot be assigned any value is called a read only reference. 
+     the original variable value can be changed, even the reference will reflect it, but the reference cannot be used to change 
+     the value of the original variable.
+     it is like passing a variable as a constant reference into a function.
+
+     eg code:
+
+     int main()
+     {
+       int a = 10;
+       const int& b = a;
+       
+       cout <<"value of b = " << b << endl;
+       //prints b = 10
+
+       a = 12;
+
+       cout <<"value of b = " << b << endl;
+       //print b = 12
+
+       b = 13; // throws an error read only reference is being assigned.
+
+       return 0;
+     }
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+8) what will happen if a const int is referenced to another variable and that is changed ?
+   eg code:
+
+   int main()
+   {
+     const int a = 10;
+     int& b = a;
+
+     b = 12;
+
+     return 0;
+   }
+
+  as epected it throws an error since b cannot be made a reference to a since it is a different type (int) from a (const int)
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+9) how to return a reference from a function and how to recieve it ?
+
+ eg code:
+
+ int& f()
+ {
+   static int x = 10;
+   return x;
+ }
+
+ int main()
+ {
+   int a = 10;
+   f() = a; //using a function that returns a reference.
+   return 0;
+ }
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+

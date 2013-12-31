@@ -1,0 +1,115 @@
+  since an array 'decays' into a pointer and also array is a constant pointer, we pass arrays as pointes and we also pass the size of the 
+pointers.
+
+eg code:
+
+int main()
+{
+  int a[10] = {};
+  
+  func(a, 10);
+
+  return 0;
+}
+
+int func(int* p, size_t i)
+{
+  //code here.
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------
+1) can we pass just the array into a function and get the size of the array using the sizeof() operator ?
+
+eg:
+
+int main()
+{
+  int a[10] = {};
+  func(a);
+
+  return 0;
+
+}
+
+int func(int* p)
+{
+  size_t i = sizeof(p)/sizeof(p[0]);
+  cout <<"in func size of array = " << i << endl;
+
+  return i;
+}
+
+ans) as said, the array decays to a pointer, it dosent even know what to return to a sizeof() operator once it gets sent over as a function
+parameter.
+
+ The above scenario dosent work.
+
+eg code: test3.cpp
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+   another way of saying we are sending an array is to use a [] notaion
+   eg code:
+
+   int main()
+   {
+     int a[10] = {1,2,3,4,5,6,7,8,9,10};
+
+     func(a[], 10)
+
+     return 0;
+   }
+
+   int func(int a[], size_t n)
+   {}
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+2) can we have a number passed as a formal parameter in a function ? would it compile ? 
+eg :
+
+int func(int a[10], size_t a)
+{
+  
+}
+
+
+int main()
+{
+  int a[10] = {1,2,3,4,5,6,7,8,9,10};
+  
+  func(a, 10);
+  
+}
+
+
+ans) it would compile.
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+3) what will happen if we pass array to the function with a [] ?
+
+eg: 
+
+int func(int arr[], size_t n)
+{}
+
+int main()
+{
+  int a[10] = {0};
+  
+  func(a[], 10);
+
+  return 0;
+
+}
+
+ans) it throws an error.
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+4) how can you ensure that a function takes an array of a specific size ?
+ 
+
+
+

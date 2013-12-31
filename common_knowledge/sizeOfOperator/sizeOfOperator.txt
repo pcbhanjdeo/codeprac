@@ -1,0 +1,87 @@
+1) sizeof() operator retuns a size of an object / primitive type in bytes.
+2) sizeof() takes a type or and expression as an argument.
+   eg:
+   sizeof(int);
+   int a = 10;
+   sizeof(a);
+   is a valid operation.
+
+2) it returns a unsigned intezer type called size_t.
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+1) how do you find the size of each primitive type ?
+ans) we use the sizeof() operator to get the size of each primitive type.
+
+size of char       = 1
+size of int        = 4
+size of short int  = 2
+size of long int   = 8
+size of long long  = 8
+size of int[10]    = 40
+size of float      = 4
+size of double     = 8
+
+----------------------------------------------------------------------------------------------------------------------------
+
+2) can the size of a particular variable of a primitive type can be found using sizeof()
+
+eg code:
+
+  int a = 10;
+  cout << "size of a = " << sizeof(a) << endl; 
+
+  it can be, sizeof() operator takes a type or an epression, since and variable is also an expression.
+
+  int a = 10;
+  int b = 20;
+  double c = 12.5;
+
+  sizeof(a+b+c);  // gives the size of double, since addition of int and double is double.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+3) what is the return type of sizeof() operator ?
+ans) sizeof() operator returns a unsigned type size_t.
+     
+-------------------------------------------------------------------------------------------------------------------------------
+
+4) what is a size_t type ? where is it normally used ?
+ans) a size_t variable that holds a non negative intizer variable, it is used for array indexing.
+
+     eg:
+
+     int a[10];
+     for(size_t i = a[0]; i < 10; ++i)
+     {
+        //some code
+     } 
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+5) can size_t variable be assigned to a negative value ? what happens when a negative value is assigned to it ?
+   eg: 
+
+   size_t i = -5;
+
+ans) the type size_t is same as unsigned long int. its value ranges from 0 to ULONG_MAX
+     when a negative value is assigned to it, it completes a circle and gives a very big int value.
+     like for example:
+     size_t j = -1;
+     cout <<"value of j = " << j << endl;
+     //print "value of j = 18446744073709551615
+
+     that is because size_t is a 8 byte type => it has 8*8 = 64 bits
+     so its value will range from 0 to 2^64-1.
+     i.e from 0 to  18,446,744,073,709,551,615.
+
+     do when size_t is assigned to -1, we complete a circle and reach the max value.
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+     
+
