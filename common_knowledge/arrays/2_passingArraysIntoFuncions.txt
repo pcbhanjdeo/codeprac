@@ -108,8 +108,27 @@ ans) it throws an error.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
-4) how can you ensure that a function takes an array of a specific size ?
- 
+4) since arrays name is an address will the array change if it is modified in a called function ?
+   yes
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+4) how can you ensure that a function takes an array of a specific size and throws error other wise?
+   This can be done by using a reference of array.
+
+   int addArr(int (&arr)[12])
+   {}
+
+   the above declaration will ensure that only an array of size 12 is passed, else it throws an error, the function only accepts a reference 
+   to an array of only a specified size.
+
+   note:
+   -----
+   notice int (&arr)[12] and not int& arr[12]
+   the first is a reference to a 12 element int array, while second is an array of 12 references.
+
+
+
 
 
 
