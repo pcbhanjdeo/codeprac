@@ -1,0 +1,18 @@
+
+ just like we have a reference to a object we suppose we can have a reference array as well.
+
+int& a[10] = b; 
+throws an error since there is no such thing called a array of reference objects.
+
+since & is left assosiate, we need to use a brace to make the assosiation clear.
+
+int (&a)[10] = b;
+when we declare like above we are making array a a reference of b => changing value in b reflects on a.
+
+in the same way we can have a read only reference arrays as well.
+
+const int (&a)[10] = b;
+=> we can change b and it will reflect on a, but no changes can be made on b at all.
+
+check test8.cpp for code example.
+
