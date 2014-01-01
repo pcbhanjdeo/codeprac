@@ -42,6 +42,12 @@ int func(int* p)
 ans) as said, the array decays to a pointer, it dosent even know what to return to a sizeof() operator once it gets sent over as a function
 parameter.
 
+in main function sizeof(a) / sizeof(a[0]) - gives you 10 since a = int * 10 units
+but in the called function since array decays to a pointer
+
+sizeof(pointer p) / sizeof(p[0]) => pointer p is a single unit.
+
+
  The above scenario dosent work.
 
 eg code: test3.cpp
@@ -113,7 +119,7 @@ ans) it throws an error.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
-4) how can you ensure that a function takes an array of a specific size and throws error other wise?
+5) how can you ensure that a function takes an array of a specific size and throws error other wise?
    This can be done by using a reference of array.
 
    int addArr(int (&arr)[12])
@@ -127,7 +133,7 @@ ans) it throws an error.
    notice int (&arr)[12] and not int& arr[12]
    the first is a reference to a 12 element int array, while second is an array of 12 references.
 
-
+-------------------------------------------------------------------------------------------------------------------------------
 
 
 
