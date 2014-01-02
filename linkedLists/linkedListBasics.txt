@@ -1,0 +1,12 @@
+1) a linked list node looks some thing like this:
+
+struct node
+{
+   int date;
+   struct node* next;
+}
+
+
+this is the basic structure used for the linked list.
+
+
