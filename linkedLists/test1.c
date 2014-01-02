@@ -8,7 +8,7 @@ struct Node
    struct Node* next;
 };
 
-int count(struct Node* head)
+int length(struct Node* head)
 {
   int num = 0;
   struct Node* current = NULL;
@@ -54,18 +54,47 @@ void deleteList(struct Node* head)
    }
 }
 
-struct Node*  createBasicList(int n=3)
+struct Node*  createBasicList(int n)
 {
-  struct Node* temp = NULL;
+  struct Node* curr = NULL;
+  struct Node* head = NULL;
   while(n)
-  {
-    temp = createNode(n);
+  {    
+    if(head)
+    {
+       curr->next = createNode(n);
+       curr = curr->next;
+    }
+    else
+    {
+       head = createNode(n);
+       curr = head;
+    }
     --n;
-    
-  }   
+  }
+  return head;   
 }
+
+void push(struct Node** headRef, int data)
+{
+  struct Node* curr = createNode(data);
+  curr->next = *headRef;
+  *headRef = curr;
+}
+
 int main()
 {
-  return 0;
+  struct Node* head = createBasicList(4);
+  printList(head);
 
+  printf("push value 10 into the list\n");
+  printf("address of head before push = %p\n", head);
+  push(&head, 10);
+  printf("address of head after push = %p\n", head);
+
+
+  printList(head);
+  deleteList(head);
+ 
+  return 0;
 }
