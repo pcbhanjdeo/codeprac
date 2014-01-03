@@ -32,6 +32,14 @@ Node_t* createList(int* p, size_t n)
   return head;
 }
 
+void push_front(Node_t** headRef, int data)
+{
+  Node_t* temp = malloc(sizeof(Node_t));
+  temp->next = *headRef;
+  temp->data = data;
+  *headRef = temp;
+}
+
 void push_back(Node_t** headRef, int data)
 {
   Node_t* curr = *headRef;
@@ -52,7 +60,7 @@ void printList(Node_t* head)
   printf("Print Array\n");
   Node_t* temp = NULL;
   
-  for(temp = head;temp->next != NULL; temp = temp->next)
+  for(temp = head;temp != NULL; temp = temp->next)
   {
      printf("[__%d__]-->",temp->data);
   }
@@ -60,85 +68,64 @@ void printList(Node_t* head)
   printf("NULL\n\n");
 }
 
+void freeList(Node_t** head)
+{
+  Node_t* curr = *head;
+  Node_t* temp = NULL;
+  printf("\n\n");
+  for(curr = *head; curr != NULL; curr = curr->next)
+  {
+    temp = curr;
+    printf("freeList::now freeing Node with data = %d\n", temp->data);
+    free(temp);
+  }
+  *head = NULL;
+  printf("\n\n");
+}
+
+
 int count(Node_t* head, int data)
 {
-  int  
+  int num = 0;
+  Node_t* curr = head;
+  for(curr = head; curr != NULL; curr = curr->next)
+  {
+    if(data == curr->data)
+    {
+      ++num;
+    }
+  }
+  return num;
 }
+
+
 int main()
 {
-  
-}
+  int a[6] = {1,2,3,4,5,6};
+  Node_t* head = createList(a,6);
+  printList(head);
 
+  printf("main::calling push_back with 10\n");
+  push_back(&head, 10);
 
+  printf("main::calling print list function");
+  printList(head);
 
+  push_back(&head, 10);
 
+  printf("main::address of head before push_front = %p\n", head);
+  push_front(&head, 10);
+  printf("main::address of head after push_front = %p\n", head);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  printf("main::printing the list\n");
+  printList(head);
  
-}
+  int n = count(head, 10);
+  printf("main number of nodes with data 10 = %d\n", n);
+  
 
-int main()
-{
+  freeList(&head);
+
   return 0;
+  
 }
