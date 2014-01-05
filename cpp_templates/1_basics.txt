@@ -1,0 +1,90 @@
+
+1) what is a template ?
+   a lot of code looks similar but is done on different type of objects, like sorting intezers or complex numbers or some random objects,
+   so we write same code for all of those and the compiler fills in the type data.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+2) if we do not use templates what are the options ?
+
+  Thre are primarily three options:
+  a) write the code for each and every type:
+      This is a brute force method of doing things and is a maintainence night mare, we reinvent the wheel for each and every object, 
+      this flies in the face of code reuse.
+
+  b) write code for base object or void* object:
+     This is how it is done in Java or C, this has a few difficulties, we loose type checking capabilities and we may have to derive from
+     special classes and it will be unweildy.
+
+  c) use preprocessors that will replace the text appropriately, but they cause more problems than they solve since they are into mindless
+     replacement of text with out a care for type checking or scope.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+3) what is the syntax for declaring a function template ?
+
+   template <typename T>
+   
+   const T& max(cont T& a, const T& b)
+   {
+     return a > b ? a : b;
+   }
+
+   check test1.cpp 
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+4) what happens when a template function is written ?
+  when a template function is written, it is not a one type fits all code, what it does is generate code for each individual type that 
+  uses it, in the last code for eg the compiler generates 3 max functions one for each type of int, double and string.
+
+  a templete code is compiled twice, once to check if the template code is syntactically correct and a second time to compile the 
+  generated code to see if any operation is performed that is illegal.
+
+  eg complex a > complex b, this line will generate a compilor error if > operator is not overloaded in the complex class.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+5) what is the process of generating concrete functions from templates is called ?
+   The process is called 'instansiation'. 
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+6) what is argument deduction ?
+   when there is a template function
+   template <typename T>
+   T max(T a, T b)
+   {
+     // code here
+   }
+
+   if we pass max(4,5), the compiler deduces that we meant T as int and calls the appropriate instantiated function from the template code.
+
+   but if we call max(4, 4.5), this throws an error, since it cannot find any instansiated function that takes two different types of 
+   input variables.
+
+   check test2.cpp
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+7) what are the ways to get around this kind of int double miss match ?
+
+  There are primarily 3 ways:
+
+  a) we can cast one of the inputs as another:
+     max(static_cast <double> (4), 4.5);
+     since now '4' has been casted as a double we end up calling the instansiated function for type double.
+
+  b) we can explicitly call the instanstiated function type.
+     max<double>(4,4.5);
+
+  c) we can use two different types in the template argument
+     eg:
+     template <typename T, typename U>
+
+     U max(T a, U b)
+     {
+       return (a > b) ? a : b;
+     }
+      
+   check test3.cpp 

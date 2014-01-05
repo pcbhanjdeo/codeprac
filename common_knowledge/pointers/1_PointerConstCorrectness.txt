@@ -1,0 +1,57 @@
+
+Pointer is an address.
+that is all there is to it.
+
+ There the 3 types of constness for a pointer.
+ a) pointer to a constant object:
+    T const *p.
+
+    here the pointer points to a constant objecect,
+    The object isnt nessesary to be a constant object, what we do by creating a pointer to a object constant is that we are ensuring the\
+    pointer dosent get to modify the object, this will ensure the control.
+
+    eg:
+
+    int a = 10;
+    int const *p = NULL; // pointer to a constant object.
+
+    a++; //legal
+    (*p)++; // illegal, since we cannot increment the object by dereferencing the pointer.
+
+    This is just a read only location.
+
+    check test2.cpp
+
+
+ b) constant pointer to an object:
+    T *const p;
+
+    this is a constatnt pointer, i.e it constantly points to a specific location in memory, trying to change the location by incrementing the 
+    pointer or by assigning it to a new variable is an error.
+
+    int a = 10;
+    int *const p = &a;
+    (*p)++; // not an error, increments value of a to 11.
+    p++ ; // error, since it is attempting to change a pointer.
+    check test3.cpp
+
+    note: an array is a constant pointer, you can put in what ever you want there, only not move it to some other place.
+    
+
+  c) constant pointer to a constant object:
+    T const  *const p;
+
+    This is the highest level of security, here neither can you change the objects that the pointer is pointing to nor can you 
+    chnage the pointer to some other object.
+
+    int i = 10;
+    int const *const p = &a;
+
+    check test4.cpp
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+

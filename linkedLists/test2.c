@@ -55,6 +55,15 @@ void push_back(Node_t** headRef, int data)
   curr->next = temp;
 }
 
+int pop(Node_t** headRef)
+{
+  Node_t* curr = *headRef;
+  *headRef = curr->next;
+  int n = curr->data;
+  free(curr);
+  return n;
+}
+
 void printList(Node_t* head)
 {
   printf("Print Array\n");
@@ -123,7 +132,9 @@ int main()
   int n = count(head, 10);
   printf("main number of nodes with data 10 = %d\n", n);
   
-
+  n = pop(&head);
+  printf("main we just popped = %d\n", n);
+  printList(head);
   freeList(&head);
 
   return 0;

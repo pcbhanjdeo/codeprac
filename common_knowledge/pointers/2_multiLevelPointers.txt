@@ -1,0 +1,49 @@
+ A pointer to a pointer is called a multi level pointers.
+
+ int* p;  // a pointer
+ int** p  // a pointer to a int pointer, a multi level pointer.
+
+1) where are multi level pointers used ?
+   There are two places where we use multi level pointers. 
+
+   a) when passing an array of pointers, it decays to a multilevel pounter.
+
+      int* p[10];
+      func(p);
+
+      func(int** p)
+
+      check test5.cpp
+
+
+   b) when we function needs to change the value of the pointer it has to pass to:
+    
+      eg: changing the head of a linked list.
+
+   check test5.cpp
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+2) if a class circle is derived from a class shape, then pointer to an object of class shape can be used to store the address of the 
+   object of a class circle.
+
+   class circle : class shape
+   {
+
+   }
+
+   circle* pCir = new circle;
+   shape* pShape = pCir; //legal.
+
+   but pointer to a pointer is not,
+
+   shape** ppShape = &pCir; // illegal.
+
+   check test6.cpp
+
+---------------------------------------------------------------------------------------------------- 
+
+   
+                  
+
+
