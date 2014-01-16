@@ -1,0 +1,4 @@
+ we are asking the compiler to pretend it is some thing else,
+I was under the impression this is just like the old c cast, apparently it is not.
+
+we need more information on this to proceed.

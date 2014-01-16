@@ -1,0 +1,89 @@
+Imp:
+---
+typedef is considered a storage specifier.
+typedef static int points; //is an error due to multiple storage class specifiers.i
+
+multiple storage class specifiers cannot be used for samwe variable.
+eg:
+
+static register int a = 10; // error
+
+
+what are types ?
+int, double etc are called types.
+
+what are type qualifiers ?
+type qualifiers are the key words that qualify a type, they give extra information to compiler as to how to treat those variables.
+eg: const and volatile.
+
+what are storage specifiers ?
+ storage specifiers are instructions to compiler as to where to store a particular variable.
+
+
+
+There are 4 storage specifiers:
+
+1) auto
+2) register
+3) static
+4) extern.
+
+auto:
+----
+ every variable by default is auto, it goes out of scope when we pass the function scope, we do not have to explicitly declare any variable
+as auto.
+
+register:
+--------
+ we are telling the compiler that a particular variable will be used a lot of times so please store it some where close so we do not have to
+search for it each and every time, in a way it is opposite to volatile.
+
+ declaring a variable as register dosent mean the variable will be stored in register, it is just a suggestion to the compiler.
+
+ a register variable, since is stored on register, dosent have an address, so & should not be used on it, if we want to use address of a
+ variable declared as register then compiler automatically ignores our suggestion to store it in register and puts it in RAM.
+
+ check test3.cpp
+
+ but C behaves differently from C++, when a address of a register variable is requested it throws an error.
+ check test4.c
+
+ 
+
+static:
+------
+  There are multiple uses of static key word based on its placement.
+
+  (a) declaring a variable static in global scope ensures that it is not visible outside the file scope.
+  (b) declaring a variable static in fucntion scope ensures that the variable is present and its value is rembered between the function calls 
+      and is only initialized once when the compiler sees the variable for the first time.
+  (c) declaring a class variable as static means that we are saying it is a class wide property and all the objects of that class will 
+      have the same copy of the variable.
+      eg: 
+      
+      class student
+      {
+        public:
+        static int objCount;
+        
+        student()
+        {
+	  ++objCount;
+        }
+
+        ~student()
+        {
+          --objCount;
+        }
+      };
+
+   (d) static functions are used to deal with static objects.
+
+extern:
+-------
+ extern variables are global variables that are visible across the files but are defined in one specific location.
+ 
+
+
+    
+

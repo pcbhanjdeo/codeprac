@@ -1,0 +1,5 @@
+1) if we declare a variable as static in a c file can it be over ridden by a local variable by a local function ?
+   yes it does.
+
+2) 
+

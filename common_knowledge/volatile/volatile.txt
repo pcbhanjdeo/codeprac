@@ -1,0 +1,16 @@
+
+ volatile is a key word where we are explicily commanding the compiler not to do any optimizations at all.
+
+each time we want a variable that is declared as volatile the compiler reaches for the source rather than depend on its cache or memory.
+
+eg:
+
+volatile const int i = 10;
+
+ The above declaration means that the variable cannot be modified with in the scope of the program but it can and will be changed 
+outside of it.
+
+ The volatile variable is normally used in multi threading where various threads access the same global variable and when a value of a 
+particular value is used we want it to take the latest value and not some thing that is stored some where.
+
+

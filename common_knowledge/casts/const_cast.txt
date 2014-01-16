@@ -1,0 +1,50 @@
+
+ to replace the old reprehensible c-casts, C++ introduced 4 types of casts.
+
+1) const_cast is used to change non const class members inside a const function.
+   since const function has a this pointer of type const obj*, const cast is used to chang it pointer of type obj*.
+   check test4.cpp 
+
+2) const_cast can be used to pass a variable to a function that accepts non const variables.
+   
+   eg:
+   int a = 10;
+   const int* p = &a;
+   int* pb = const_cast <int*> (p);
+
+   fun(pb); // fun(int* b) is the function signature, sending fun(cont int* a) would have thrown an error.
+   check test5.cpp
+
+   => the above has an issue only with pointers, since we are sending addresses, for regular temp variables, even though they are const,
+      it dosent throw error, since we send a copy only any ways.
+
+      eg:
+
+      const int a = 10;
+      fun(a); //throws no error, even thouh the function signature is fun(int) because the variable that we send is a copy any ways.
+
+   => but if we expect a reference then we run into an error,
+      check test6.cpp
+
+3) declaring a variable as a cont and then chnaging its value using a const pointer is undefined behavior.
+   
+   eg:
+
+   const int a = 10;
+   int const* p = &a;
+
+   int* q = const_cast <int *> p;
+
+   (*q)++;
+
+   cout << " a = " << endl;
+
+4) const_cast is safer than regular c style cast since if we try to cast one type of const pointer into another it throws a compilation error.
+
+5) const_cast can also be used to cast away volatile attribute of a variable.
+   eg:
+   int a = 10;
+   const volatile int* pvci = &a;
+   int* p = const_cast <int*> (pvci);
+
+

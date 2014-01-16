@@ -1,0 +1,10 @@
+
+1) ++a = preincrement.
+   implies that a will be incremented and then it will be used.
+2) a++ = post increment.
+   implies that a will be used and then it will be incremented.
+
+   when ever used it works exactly as guessed, check test1.cpp and test2.cpp
+
+
+

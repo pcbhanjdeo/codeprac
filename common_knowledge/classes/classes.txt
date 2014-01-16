@@ -1,0 +1,11 @@
+ a class is a user defined data type.
+ it allows the user to code closer to the problem domain.
+
+ a class has three access specifiers.
+ public - accesible to all, normally class methods(functions) are made public.
+ private - only accesible to class methods, these are called state variables. 
+ protected - accesible ponly to children.
+
+ an object of a class has only a copy of the data variables in it, it does not have functions in the object size.
+ 
+

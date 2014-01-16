@@ -1,0 +1,28 @@
+ A static cast is some thing that we tell the compiler that a particular variable is a different one at compile time, it has no significant
+over head compared to dynamic cast.
+
+eg:
+
+class shape
+{
+  public:
+  f1();
+  f2();
+};
+
+class circle:public shape
+{
+  public:
+  f3();
+}
+
+shape* pShape = new circle(); //circle is a kind of a shape.
+circle* pCircle = static_cast<circle*> (pShape);
+
+as you can see, a static cast is used to down cast from a pointer to a base class to a pointer to a derived class when we happen to know 
+at the compile time itself that it is the case.
+
+we typically use it to say access the function f3() which will not be available with the base class pointer.
+
+check test3.cpp 
+

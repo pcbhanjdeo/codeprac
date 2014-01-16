@@ -1,0 +1,17 @@
+
+syntax:
+-------
+
+for(initialization; check truth val ; post execution)
+{
+  body;
+}
+
+first the variable is initialized and this part is called only once when the loop is entered.
+second truth val is checked before the execution of body each time.
+third body is executed
+fourth the post execution increment takes place.
+
+check test1.cpp 
+
+
