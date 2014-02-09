@@ -1,0 +1,9 @@
+
+1) how do you ensure that nobody ever creates a object of your class ?
+   we achieve that by making the constructor private.
+
+
+
+
+   
+

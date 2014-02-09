@@ -1,0 +1,51 @@
+1) what are the various ways of creating a vector ?
+   (a) default constructor:
+       creates an empty constructor.
+      eg: vector<int> a;
+
+   (b) fill constructor:
+       here a vector is created with the given size and the object, so a vector with size number of same objects is created.
+       vector(size_t size, type_name object);
+       
+       eg: vector<int> a(10, 8);
+       The above line creates a vector of 10 elements each with a 8 in it.
+
+   (c) range constructor:
+       here a vector is created with input iterators.
+       vector(inputIterator first, inputIterator last);
+
+       eg: vector<int> b(a.begin(), a.begin()+4);
+
+   (d) copy constructor:
+       we pass an existing object to create a new one.
+       vector(const vector & );
+
+       eg: vector<int> c(a);  //creates a vector c exactly same as a.
+
+2) what is a size() function ?
+   The size() function returns the number of elements in the vector.
+
+   eg: vector<int> a(10, 8);
+       a.size() = 10;  //size a vector of size 10 with values 8 is created.
+
+3) what is max_size() function ?
+   max_size() function returns the maximum potential of the number of elements that can be held by the vector, this is the max limit.
+   the vector can run out even before it touches this number.
+
+4) what is the capacity() function ?
+   The capacity() function returns the memory alloted by the vector and number of elements that can be filled with out allocating memory.
+
+5) what is insert() function ?
+   if we want to insert a element in a vector, we pass the iterator of a position, the element is inserted 'before' the position where
+   the iterator is pointing.
+   check test5.cpp
+
+6) what does the erase() function do ?
+   erase() function removes the element of whose iterator is passed, or a range is also erased, when the first and last iterators are passed.
+   check test6.cpp.
+   The return is the iterator to the first element after the last erased element.
+
+
+
+    
+

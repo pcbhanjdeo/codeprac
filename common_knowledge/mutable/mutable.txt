@@ -1,0 +1,29 @@
+ we declare a variable as mutable when we want to change it even when the object that contains it is declared const.
+
+eg:
+
+class employee
+{
+  public:
+  int    getSalary();
+  string getName();
+
+  private:
+  const string name;
+  mutable int salary;
+}
+
+here in the above class even if we declare a const employee object, we can change the value of salary at will.
+
+this usage is aparently wrong, check test1.cpp, 
+
+always use volatile keyword when we know that a object is logically constant but in practice needs to change.
+like for example, we want to know how many times a particular const function is called, I mean things that you do which has no effect 
+what so ever on the logical state of the object.
+
+  if we are making any decision based on volatile data member the you are having some thing wrong, have a recheck.
+
+http://www.highprogrammer.com/alan/rants/mutable.html
+
+
+

@@ -1,0 +1,42 @@
+
+what is placement new and why is it used ?
+we can always allocate and initialize an object in C++ using new operator.
+but there can be situations where allocating memory is quite expensive, so you keep the memory allocated before hand and initialize it when 
+needed, these are called memory pools.
+
+ all the containers use placement new, get chunks of memory aside for themselves and initialize it when needed and do not delete them when 
+removed, these things are called memory pools they are very efficient.
+
+ another usage is when we want a particular object to be shared by multiple processes.
+
+syntax
+---------
+#include <new>
+char memory[sizeof(class name)];
+--> memory becomes the address of the memory pool.
+type* typePointer = new (address) constructor-call.
+
+
+
+syntax:
+#include <new>
+char memory[sizeof(A)];
+A* pA = new(memory) A();
+
+we need to call the destructor explictly for this:
+pA->~A();
+
+check test3.cpp
+
+ 
+
+references:
+-----------
+http://stackoverflow.com/questions/222557/what-uses-are-there-for-placement-new
+http://stackoverflow.com/questions/2995099/malloc-and-constructors
+http://www.parashift.com/c++-faq-lite/placement-new.html
+
+
+
+
+

@@ -1,0 +1,81 @@
+
+1) what are the main components of STL programming ?
+   There are 6 major components to STL:
+   (a) containers.
+   (b) generic algoritherms.
+   (c) iterators.
+   (d) adapters.
+   (e) allocators.
+   (f) function objects.
+
+
+2) what are the types of containers are available ?
+   There are two types of containers:
+   (a) sequence containers - eg: vector.
+   (b) sorted assosiative container - eg: map.
+
+3) what are sequence containers ?
+   sequence containers organize a collection of objects, all of the same type T in a strictly linear arrangement.
+   
+   (a) vector - a vector is a sequence container with random access (i.e it will take the same time to access any element in the sequence)
+                and amortized constant time insertions and deletions at the end of the container.
+
+   (b) deque - a deque is a sequence container with random access and amortized constant time insertions and deletions at both the ends of
+               the container.
+
+   (c) list  - a list provides a linear time access to any of its content, i.e the time taken to access and element is proportional to
+               the size of the list, but it provides constant time insertions and deletions at any location.
+
+   (d) string - a sequence of charecters on which all the generic algoritherms can be applied.
+
+4) can a generic algoritherm be used on a array just like it a sequence container ?
+   yes, they can be, the sequence containers are modeled on arrays and they are designed to be better arrays, so they are designed in a way
+   to have all the properties of an array.
+   
+   check test1.cpp
+
+5) what are some curios facts about begin() and end() functions ?
+   The begin() and end() functions return the iterators to the first element and one past the last element in the container, i.e
+   if a container has 10 elements begin returns a iterator to the first element and end() returns the iterator to the theoritical,
+   non existant 11th element to the container.
+
+6) if you are passing array to a generic algorithm what should you keep in mind ?
+   iterators are designed to work like pointers, so a iterator is kind of replacable with a pointer, but since we pass the iterator to the
+   first element and the iterator to the one past the last element, we should do the same with arrays as well.
+   i.e we need to pass the address of first element, &a[0] and the address beyond last element &a[strlen(a)] or (&a[n-1])++;
+
+7) write a program to pass a array of intezers to a generic algo, say sort ?
+   check test2.cpp
+   the function sort takes begin iterator, and end iterator and sorts every thing in the middle,
+   for a vector, it goes some thing like this:
+   sort(vec.begin(), vec.end());
+
+   if we want to use the same generic algo over a regular array, we need to pass the analogus values to it.
+
+   vec.begin() = begin iterator = arr; // name of the array is the address of it first element.
+   vec.end()   = end iterator = one past the last element = arr + lengh of arr // one past the last element.
+
+   => int a[10];
+      sort(a, a+(sizeof(a)/sizeof(a[0])));
+    
+      a = pointer to first element.
+      a + sizeof(a)/sizeof(a[0])  = a + length of array = address of one past the last element in the array.
+
+8) how do you pass a vector into a function that expects basic array ?
+   almost any function that expects a array, gets it as a pointer to the type of object in the array and the size of array.
+
+   int a[10];
+   print(a, 10);  // address of first element, the size of the array.
+
+   to call a function:
+   void print(int* p, size_t n);
+
+   if we have a vector of some size and we want to pass it to the print function, all we have to do is to pass the address of the first
+   element of the vector and its size.
+
+   vector<int> a[10];
+   print(&a[0], a.size());
+
+
+
+      

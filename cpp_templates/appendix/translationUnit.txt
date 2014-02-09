@@ -1,0 +1,15 @@
+
+1) what is a translation unit ?
+a translation unit is sort of scope, it is the file that is fed to the compiler after the preprocessor is run on it, the translation unit
+removes all the lines that are excluded using #ifdefs and #ifndefs and all the header files are included recurcively. 
+
+  The above translation unit is fed to the compiler to get object files, which are later combined by the linker to generate the
+executable file.
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+2) what is ODR ?
+   ODR stands for one definition rule, it states that a non inline function is defined exactly once across all files and inline functions
+and classes are defined atmost once in a translation unit. 
+
+

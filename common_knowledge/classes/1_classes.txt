@@ -7,5 +7,10 @@
  protected - accesible ponly to children.
 
  an object of a class has only a copy of the data variables in it, it does not have functions in the object size.
+check test1.cpp
+
+----------------------------------------------------------------------------------------------------------------------------
+
+
  
 

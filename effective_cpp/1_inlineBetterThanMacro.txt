@@ -1,0 +1,35 @@
+
+ we all know that macros are horrible, since they mindlessly substitute one peice of text with another with out any respect what so ever
+for scope rules etc.
+
+follwoing is a good example:
+
+#define max(a,b) ((a) > (b) ? (a) : (b))
+
+why do we need so many parathesis here for the macro, the reason being when ever any one calls the macro with expression, since its a 
+text replacement, 
+
+eg: max(5-4,5+4)
+
+check test1.cpp
+
+here we do not want the expression to over flow its intended boundaries and behave in unexpected fashion.
+
+even if we do provide all the possible braces to ensure the expressions do not overflow its boundaries, we get stumped in 
+expressions where there are increment operators used.
+
+eg:
+
+int a = 10;
+int b = 0;
+
+max(++a, b)  --> using macro, a gets incremented twice, since we are calling ++a, twice.
+
+but
+
+max(++a, b+20) ---> a only gets incremented once, since it is called only once.
+
+
+bottom line:
+macros are evil, use inline function instead.
+

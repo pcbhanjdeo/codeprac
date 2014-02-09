@@ -1,0 +1,11 @@
+ we are never supposed to mix new and malloc, by that we mean if a object is created using new then we should remove it calling delete.
+ and if we create a memory using malloc the we should remove it using free(), never mix them both.
+
+ we should always prefer using new and delete over malloc and free, since malloc and free just allocate a chunk of memory and are totally
+unaware of constructor and destructor.
+
+ when we create objects using mallaoc, we are not calling constructors at all and when free is used since destructors are not called
+ we will loose memory if object allocates memory as well.
+
+
+ 

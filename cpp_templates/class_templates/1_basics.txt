@@ -1,0 +1,17 @@
+
+for a class template the syntax goes some thing like this:
+
+template <typename T>
+class className
+{
+  public:
+  functiuons()
+};
+
+className<t>::function(T const& elem)
+{}
+
+
+
+
+

@@ -1,0 +1,61 @@
+1) what are the various ways of creating a string object ?
+   There are 7 ways of creating a string object.
+
+   (a) default constructor:
+       string();
+
+   (b) copy constructor:
+       string(const string& str);
+
+   (c) substring:
+       string(const string&, size_t pos, size_t len = npos);
+
+   (d) from c string:
+       string(const char* p);
+
+   (e) from sequence:
+       string(const char* , size_t n)
+
+   (f) fill:
+       string(size_t n, char c);
+
+   (g) range:
+       string(InputIterator first, InputIterator last);
+
+2) what is find() function in a string ?
+   following are the usage of find() function.
+   
+   (a) size_t find(const string& , size_t pos = 0);
+       The above function finds the location where the string is found in another on or after location pos.
+
+   (b) size_t find(const char* , size_t pos = 0);
+       The above function finds the location of a cstring from location pos.
+
+   (c) size_t find(const char* , size_t pos, size_t n);
+       The above function is used to find a substring in a function.
+
+   (d) size_t find(char c, size_t pos = 0);
+       The above function is used to find the location of charecter in a string.
+
+3) what happens if a particular substring is not found ?
+   when a particular substring is not found string::npos is returned by the find funtion, it is eqvivalent to end() function.
+
+4) what is the difference between find() and find_first_of() ?
+   find() matches the entire string that is given to it and find_first_of() when any of the charecters in the input string is matched to
+   any charecter that it comes across.
+
+5) what is rfind() ?
+   it is opposite of find(), it finds substrings from reverse.
+
+6) what is find_last_of() ?
+   it is the opposite of find_first_of(), it searches for charecters from the end of the string.
+
+7) what is find_first_not_of() ?
+   it returns the position of the first charecter that is not in the string.
+ 
+8) can we use a range constructor of a string and pass a vector iterators ?       
+   some how it dosent work.  
+ 
+
+
+

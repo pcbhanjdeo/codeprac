@@ -1,0 +1,18 @@
+ 
+we use inheritcence for code reuse.
+
+1) what is the process of function look up ?
+   There are 3 steps for function lookup:
+   1) search for the function name match
+   2) search for the best suited function based on the argument type.
+   3) check for access of the function.
+
+2) when we have a function in the base class and we have a function with the name in the derived class what happens ?
+   function over loading and overriding compete with each other, if we have 2 functions with same name in the base class and derived class
+   so when a function call is made, based on function lookup steps, compiler first searches the name in the current class scope and finds
+   the wrong function and generates an error since it thinks there is a argument mismatch, it never gets to the functions inherited from
+   the base class.
+
+   check test2.cpp
+
+3) 

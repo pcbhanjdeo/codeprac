@@ -1,0 +1,26 @@
+can a constant pointer be assigned to a regular pointer ?
+
+eg:
+
+int* const pc = new int[10];
+int* p = pc;
+
+is that legal and why ?
+
+ans) that is legal since, we are only saying that the pointer is constant, that is, the address stored in it can never change, some one else
+     can have the same address and make changes, this is used because, it will be easy to play around with non const pointer on the buffer
+     and when we are done we can delete the location what we should
+
+     eg:
+
+     p++;
+     *p = 10;
+
+     delete []pc;
+
+     this way we do not have to come back to the start point of the array.
+
+     check test2.cpp
+
+
+

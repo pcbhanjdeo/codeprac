@@ -1,0 +1,23 @@
+ This is a concept called covariant return types.
+
+ a virtual function from base class, when getting overrided in derived class should have the same signature both in its input and return
+ types, but there is one exception, if the return types are covariants then the return types can be different.
+
+  eg:
+
+  class shape
+  {
+    public:
+    virtual shape* getType();
+  };
+
+  class circle : public shape
+  {
+    public:
+    virtual circle* getType();
+  }
+
+  the getType() function of the circle class can override getType function of the shape class since it returns a circle* pointer, which is 
+  a type of shape.
+
+

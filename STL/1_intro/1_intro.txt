@@ -1,0 +1,7 @@
+  
+1) what is code bloat ?
+   when different types of classes instatiate different templates into proper code, there are many versions of the same template
+code is added, these instansiates create a lot of object code and this is called code bloat.
+
+2)  
+
