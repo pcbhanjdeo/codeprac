@@ -1,0 +1,43 @@
+ 
+  C++ provides the same functionality for the data in the file manipulation as same as any other stream, the header for the same is 
+#include <fstream>
+f - stands for file.
+
+There is a input file class and output file class under fstream, called ifstream and ofstream (analogus to istream and ostream)
+
+but unlike cin and cout, the standard istream and ostream object C++ doesnt have any objects defined.
+
+so we will have to declare our own objects.
+
+ifstream inputFile;
+ofstream outputFile;
+
+1) how do you initialize the ifstream object ?
+   ifstream inputFile("inputFile.data");  //calling the ifstream class constructor.
+   or
+   ifstream inputFile;                //calling ifstream default constructor
+   inputFile.open("inputFile.data");  //calling the open function with file path.
+
+   we give the relative or absolute path of the file we need to open, user defined ifstream class object inputFile will open the file and establish 
+   the connection between data file and the process that has called to open it.
+
+   if a file does not exist then no file will be created and error will be returned.
+
+2) how do you initialize a ofstream object ?
+   ofstream outputFile.open("writeMe.data");
+
+   we give the relative or absolute path of the file, if no file with that name exists then operation system will create one for us.
+
+3) what is a fail() member function ?
+ans) fail function is used to check if last operation was succesfull or not,
+     eg:
+
+     ifstream iFile("myFile.txt");
+     if(iFile.fail())
+     {
+       //failed to open last file
+     }
+
+     check  
+
+

@@ -1,0 +1,111 @@
+
+The header for including input and output on C++ is: <iostream> 
+i - input stream
+o - output stream.
+
+-------------------------------------------------------------------------------------------------------------------------------
+1) what is cin ?
+   cin is a object of the class istream (input stream) that takes all its input from key board or a file.
+
+2) what is cout ?
+   cout is a object of the class ostream (output stream) that directs all the output of the system to a screen.
+
+3) if cin and cout are objects of istream and ostream respectively can I declare some random names as objects of istream and ostream and use them 
+   instead of cin and cout ?
+ans) eg:
+     #include <iostream>
+     ostream bOut;
+
+     bOut <<"this works like cout\n";
+
+     The above code dosent work, I am getting some protected error. 
+
+     but tutorials do say that
+     istream cin;
+     ostream cout;
+
+     cin is a instance or an object of the class istream.
+
+     check test5.cpp
+
+4) what is s stream object exactly ?
+ans) a stream is a connection between a process that initializes it and the object from which the process is picking up the data, like say a file. 
+     The stream object (like cin or cout) provides an interface to the process with the data.
+
+5) if cout << a is nothing but operator over loading on a ostream class object then will cout.operator<<(a) work on this ?
+ans)
+    eg:
+    int a = 5;
+    cout << a;
+
+    cout.operator<<(a);
+
+    The above format works, => << is an operator loaded on the object cout of class ostream to print the output on to the screen.
+
+6) so how does cout << x << y << z works internally ?
+ans) this is called chained operation.
+     operator<<(const T& a) function of ostream class which is currently working on its cout object is designed to return 
+     a reference to the ostream object, 
+
+     effectively cout.operator<<(x) returns the same cout object which works on other outputs.
+
+     => cout << x << y << z;
+
+     is internally nothing but cout.operator<<(x).operator<<(y).operator<<(z);
+
+     check test6.cpp
+
+8) what is a put() function ?
+   a put() function is a member of ostream class, it takes a char input and
+   puts it into the output stream.
+
+   function signature:
+   ostream& put(char c);
+
+9) what is flush() function ?
+   a flush function ensures that the entire buffer is printed out on the
+output.
+
+10) what is this std::endl ?
+ans) endl is a std function, it takes a ostream object as input, puts a "\n"
+     in it and then calls ostream.flush() function to get all the out put.
+
+    endl function:
+    ostream& endl(ostream& os)
+    {
+      os.put('\n');
+      os.flush();
+      return os;
+   }
+
+   instead of cout << endl; for generating a new line, I can call endl(cout) to
+   do the same.
+
+11) since endl() is a function what does cout << endl means ?
+ans) going with the previous examples, cout << endl should mean:
+     cout.operator<<(endl)
+
+     since endl is a function, operator<<() has an overloaded function
+     that takes any function pointers, makes a call to them, puts the output
+     in the stream and returns a reference to itself.
+
+     eg:
+     cout << add(5,3);
+
+     what happens here is:
+     operator<<(function_pointer)
+     {
+         this->put(function_pointer(5,3));
+         return *this;
+     }
+
+    in the same way when we say:
+    cout << endl;
+    what happens is:
+    cout.operator<<(endl)
+    {
+       return this->endl(*this);
+    }
+
+
+
