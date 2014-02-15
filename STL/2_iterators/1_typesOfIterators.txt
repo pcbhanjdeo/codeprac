@@ -1,0 +1,129 @@
+1) what are iterators ?
+   iterators are pointer like objets that connect containers on one end and generic algorithems on the other, due to iterators the containers or
+   algos do not have to know about each others existence.
+
+   eg:
+   sort() function sorts all the lements in a contaner, all it needs is an iterator to first element and last element, irrespective of
+   what container's iterator it is.
+
+2) how many categories of iterators are there ?
+   There are 5 kinds of iterators:
+   (a) input iterators
+         pointer like objects that are capable of reading from a container and
+	 and move in a direction are called input iterators.
+
+   (b) output iterators
+	 pointer like objects that can only write into a container and move in
+	 a direction are defined as output iterators.
+
+   (c) forward iterators
+	 pointer like objects that can read and write into a container and
+	 can also move in a single direction are called forward iterators.
+
+   (d) bidirectional iterators
+	pointer like objects that can move in both directions while retaining 
+	the ability to read and write are called bidirectional iterators.
+
+   (e) random access iterators
+	pointer like objects that can read and write and can move back and
+	forth and can also access any element of a container in constant time
+	are called random access iterators.
+
+3) what exactly is the idead behind these iterator categories ?
+   The idea is lot like inheritence, just like a a vehicle is also a car and
+   has all the properties of a car and so on, the iterator hirerchies are 
+   properly designed in that fashion.
+
+   forward iterator is also a input and output iterator.
+   bidirectional iterator is also a forward iterator.
+   random access iterator is also a bidirectional iterator.
+
+   for each algo we need to be able to do some things, for example
+   binary search works more efficiently when we can jump from one location to 
+   another, for this we need an iterator who has random access capabilities,
+   so we search for containers that provide random access iterators, so 
+   using a binary serach algo on a vector is advised but using the same on a
+   list is cumbersome, since elements in a list cannot be accessed in constant
+   time.
+
+   for reverse() to work, we need to be able to move back and forth and also 
+   should be writing stuff into the containers, so we need bidirectional
+   iteratos, so any container that provides a bidirectional iterator is 
+   good to go.
+
+   since our hirerchy also tells us that a random access iterator has all the
+   capabilities of bidirectional iterator, we can happily use a algo that 
+   expects a bidirectional iterator on a container that provides a random
+   access iterator very efficiently.
+
+
+4) what does the above discussion boil down to ?
+   (a) algos that require only input or output iterators can be used with
+       forward, bidirectional or random access iteratos.
+   (b) algos that require only forward iteratos can be used with random
+       or bidirectional iteratos.
+   (c) algos that require bidirectional iterators can be used with random
+       access iterators.
+
+5) how is the iterator catogories are ultimately helpfull ?
+   a description of a container class includes the category of iterator
+   types they provide.
+   The description of algo provides the category of iterator class it
+   accepts.
+   eg: a find() algo expects a input category iterator, so a <list> container
+       That provides a bidirectional iterator can be used efficiently with 
+       find function.
+       but sort() algo expects a random access iterator, so passing a list to
+       the sort function gives an error.
+       check test1.cpp
+
+6) what exactly is the use for input iterator and output iterator ?
+   Input iterator and output itearator can be used for istream and ostream 
+   objects.
+   istream_iterator<istream&> = input iterator, it just reads stuff from cin() 
+   dosent have to write anything to it and can move forward.
+   ostream_iterator<ostream&> = output itearor, writes into a output stream, 
+   dosent have to read it and moves in one direction.
+
+
+7) how do you pass the containers to a function ?
+   containers are large objects, the best way pass them and not want to
+   modify them is to pass them as a const reference.
+   eg: printVec(const vector<int>& iVec);
+   but if we want to iterate over this container we are allowed to have
+   only const iterators.
+   eg:
+   for(vector<int>::const_iterator cit = iVec.begin(); cit != iVec.end();
+       ++cit)
+   {}
+
+   as can be seen we cannot make any changes on a const_iterator.
+
+8) what are the iterator categories provided by various containers ?
+   container       iterator category
+   ---------       -----------------
+   vector          random access iterator
+   deque           random access iterator
+   map             bidirectional iterator
+   set             const bidirectional iterator.
+   list            bidirectional iterator.
+
+9) what is the difference between a set and a map ?
+   A map and a set are both sorted assosiative containers, for a set when we
+   we have a pair in it, only that can be modified is to delete and reinsert 
+   it, map on the other hand can have a secondary element that can be modified
+
+   The iterator for set is always a const iterator, but for the map it can be
+   a const or a regular iterator.
+
+10) what is the difference between a deque and a vector ?
+    both of the containers are liner collections, but with deque
+    there is no guarantee that memory is allocated linerly,
+    you can consider a deque to be a chunk list.
+    because of which it can have a easy removal and additions at
+    both the ends.
+    but since vector is a contiguous memory, it can be passed to
+    legacy C functions.
+
+ 
+   
