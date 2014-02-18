@@ -1,0 +1,45 @@
+1) what is main ?
+   main() is a function that the machine calls first, by default it has storage class specifier extern, a program must have a 
+   main() function, and only one main function, its address cannot be taken.
+
+2) what are dont's pertaining to main() ?
+   (a) its address cannot be taken.
+   (b) it cannot be a static function.
+   (c) it cannot be inlined either
+   (d) main() cannot call itself.
+   (e) main() cannot be called from other functions.
+
+3) can I over load main function ?
+   example:
+   int main()
+   int main(int a, int b, int c);
+
+   we cannot overload main() function, the standard explcitly forbades it since it does not want any name mangling in picture, 
+   and wants main() to exactly be what it is expected.
+   
+   check test1.cpp
+   http://stackoverflow.com/questions/5282151/can-we-overload-main-function-in-c
+   
+4) can you call main() function from with in main() ?
+   yes we can, through gcc, but -pedantic flag with the g++ throws an error.
+   check test2.cpp
+
+5) can you call main() from some other function ?
+   yes we can from g++, again -pedantic dosent let you do that.
+   check test3.cpp
+  
+6) what are the arguments that main takes ?
+   main() takes two arguments, 
+   int argc -> argument count.
+   char** argv -> argument vector, pointer to an array of char* pointers.
+
+   int main(int argc, char** argv)
+   {
+      *argv;  //prints char* string
+      ++argv;
+   }
+
+   check test4.cpp
+
+
+   

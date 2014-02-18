@@ -1,0 +1,67 @@
+1) what are default parameters ?
+   when we declare a function we pass some values to it our selves so that caller has it easy.
+
+   //declaration.
+   int fun(int a = 42);
+
+   //defination.
+   int fun(int a)  //defination, we do not have to put default parameter here.
+   {
+
+   }
+
+2) what happens if we put default parameter in the defination ?
+    The rule is that the compiler must see the default parameter only when it comes across the function for the first time,
+    the next time if it sees the default parmeter, it throws an error.
+
+3) what about having default parameters across different files ?
+   we will not have any issues, since the compiler looks at all the different files seperately so having a redeclaration with the 
+   same default parameter across files have no effect on it.
+   check test6.cpp
+
+4) what happens if default parameter has a different value across the files ? will it be a linker error or a compiler error ?
+   as anticipated above since all files are compiled independently having different default values across files will not have 
+   any effect, the default value that is picked up when a function is called from a file will be same as the default value 
+   that is provided in that file where it is called.
+   check test6_1.cpp and test6_2.cpp
+
+5) what will happen if we declare the function twice in the same file ? with and with out default values ?
+   you can declare a function in a file as many times as you want, but the default values have to be declared only one time, 
+   the first time, even if you put the same default value a second time in a second declaration of a file the compiler throws
+   error.
+
+   check test7.cpp
+
+6) what happens if we do not put default values for first declaration and put default value for second declaration ?
+   check test8.cpp
+   seems like we can have the default value only once, it dosent nessesary have to be the first declaration that the
+   compiler comes across, the first declaration can be a normal one and a second declaration can be with the default
+   value and the code works fine.
+
+7) what happens if we do not have any defaults in declarations but we have it at definations ?
+   check test9.cpp
+   it works, the only restriction is that the defination of the function, where the default value has been declared for the first time
+   has to come before invoking the function call with default argument, since obviosely by the time of the function call the compiler
+   hasnt seen the default value yet.
+
+8) what is the bottom line about default values in a function ?
+   (a) we can have any number of declarations of a function in a file.
+   (b) at max we can have only a single declaration/defination in a file with default values.
+   (c) the function declaration with default value should be visible before the function call is made, else inadequate parameters
+       error is thrown.
+   (d) we can have different default values across different files, the default value that is picked up will be the same as 
+       the default value that is put in the file where the call is made.
+
+9) what happens if we have over loaded functions with default parameters ?
+   eg:
+   int f1();
+   int f1(int a = 10);
+
+   and when I make a call f1(), will it throw a error and why ? linker or compiler ?
+
+   it will be a compiler error, since it was unable to resolve statically what function to call, since there are 
+   two valid candidates fullfilling that call.
+
+   check test10.cpp
+
+ 
