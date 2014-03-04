@@ -1,0 +1,107 @@
+
+1) an auto pointer is a smart pointer that will delete itself.
+   it used the maxim RAII - resourse cllocation is initialization 
+   => we create a dynamic pointer and embed it in a stack object, when the stack object goes out of scope, its destructor is
+      called inside which the dynamically allocated memory is destroyed.
+
+2) what is the std::auto_ptr
+   std::auto_ptr is a stl provided smart pointer template which deletes itself when goes out of scope.
+
+3) what is the header that needs to be added for a auto_ptr ?
+   #include <memory>
+
+4) what is the auto_ptr syntax ?
+   template <typename T>
+   auto_ptr <T> p(new T);
+
+5) what are the various ways of creating an auto pointer ?
+   (a) from temporary new object
+       auto_ptr < A > a = new A(10);
+
+   (b) as a null object
+       auto_ptr <A> b;
+
+   (c) copied from a different object
+       auto_ptr <A> c = a;
+       in the above case a becomes NULL and the ownership is transfered to c.
+
+6) why is owner ship transfered to another smart pointer when assignment is
+   done ?
+   if we do not transfer the ownership then we will have a stituation where
+   to objects are sharing the same dynamic memory which which will be deleted
+   by both, the second object to delete it will cause a seg fault.
+
+7) what happens if we create a new pointer and then assign it to a smart
+   pointer ?
+   eg:
+   {
+     A* pA = new A(10);
+     auto_ptr <A> a = pA;
+     delete pA;
+   }
+   would this cause a seg fault ?
+
+   as expected it does.
+
+8) how do you get the address of the pointer that lies with in the auto_ptr ?
+   we use the get() function.
+   auto_ptr <A> a(new A(10));
+   A* p = a.get(); //puts the address of underlying pointer in p.
+   check test3.cpp
+
+9) how do you destroy an auto_ptr ?
+   we destroy a auto_ptr by calling release() member, it returns the
+   underlying address of the pointer.
+   check test4.cpp
+
+10) how do you reassign a auto_ptr to another auto_ptr ?
+    we do that by calling = operator
+    auto_ptr <A> a(new A(10));
+    auto_ptr <A> b(new A(20));
+    b = a;
+    the above assignment first destroys the underlying pointer in b(one with
+    value 20) and passes the owner ship of the pointer inside a (one with
+    value 10) to b and makes the underlying pointer in a to NULL.
+    check test5.cpp
+
+11) how do you make the auto_ptr to point to some other object ?
+    we do that by using the function reset();
+    auto_ptr <A> a(new A(10));
+    a.reset(new A(20));
+    check test6.cpp
+    we first destroy the pointer with value 10 in it and then
+    assign the pointer with value 20 in it to the auto_ptr.
+
+12) what happens if we reset one auto_ptr with another ?
+    eg:
+    auto_ptr <A> a(new A(10));
+    auto_ptr <A> b(new A(20));
+    a.reset(b.get());
+
+    what reset does is deletes the pointer in a and assigns what ever pointer
+    is assigned through reset(), effectively the above peice of code will
+    generate core dump, since both a and b are pointing to the same memory
+    location now and will attempt to redelete it.
+    check test7.cpp
+
+13) what will happen if we create a new auto_ptr with get function of
+    an existing auto_ptr ?
+    auto_ptr <A> a(new A(10));
+    auto_ptr <A> b(a.get);
+
+    same as above the program crashes.
+    check test8.cpp
+
+14) what will happen if we pass the address of a stack object to auto_ptr
+    and then get out of the scope ?
+    eg:
+    A a;
+    auto_ptr <A> b(&a);
+    
+    There will be a core dump, since the auto_ptr object tries to delete
+    a stack object.
+
+
+
+
+
