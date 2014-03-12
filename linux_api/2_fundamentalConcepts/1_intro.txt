@@ -1,0 +1,34 @@
+
+1) what is a kernal ?
+a) the central software that manages and allocates computer resources, such as RAM, CPU and devices is called a kernal.
+   a kernal can also be defined as computer system resource manager.
+
+2)can we have a computer system with out a kernal ?
+a) yes we can but it will lead to a very inefficient resource management, the programs that will be running will become strogly coupled with underlying hardware or each program needs 
+   to write its own interface with underlying hardware.
+
+3) what are the tasks performed by the kernal ?
+a) The kernal is responsible to perform a variety of tasks:
+   (i) process scheduling
+       many programs run simultaneousely on the machine the kernal gets to
+       decide which programs will get to use the CPU and for how long.
+  (ii) memory management
+       Linux employs virtual memory concept to run its processes, using this
+       only a part of the process is put on memeory allowing multiple      
+       processes to have access to CPU and also each process will have its own
+       memory segment which will ensure that one process will not modify the
+       data being operated upon by other process.
+ (iii) provision of a file system
+       The kernal provides a file system that allows the programs to create,
+       modify or delete files.
+  (iv) create and terminate a process
+       The kernal loads a new program into memory and provides it with 
+       resources such as CPU to run, this is called a process, when such a
+       process has finished its execution, it is the job of the kernal to 
+       remove the process from memory and free the resources allocated to
+       it so that other processes can use them.
+   (v) access to devices
+       many devices like mice, printers are connected to the computer, it
+       is the job of the kernal to provide access between various programs
+       to the processes
+    
