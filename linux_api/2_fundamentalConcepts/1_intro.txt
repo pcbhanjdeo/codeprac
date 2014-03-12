@@ -4,8 +4,8 @@ a) the central software that manages and allocates computer resources, such as R
    a kernal can also be defined as computer system resource manager.
 
 2)can we have a computer system with out a kernal ?
-a) yes we can but it will lead to a very inefficient resource management, the programs that will be running will become strogly coupled with underlying hardware or each program needs 
-   to write its own interface with underlying hardware.
+a) yes we can but it will lead to a very inefficient resource management, the programs that will be running will become 
+   strogly coupled with underlying hardware or each program needs to write its own interface with underlying hardware.
 
 3) what are the tasks performed by the kernal ?
 a) The kernal is responsible to perform a variety of tasks:
@@ -30,5 +30,13 @@ a) The kernal is responsible to perform a variety of tasks:
    (v) access to devices
        many devices like mice, printers are connected to the computer, it
        is the job of the kernal to provide access between various programs
-       to the processes
+       to the processes.
+  (vi) Networking
+       The kernal transmits and recieves various message packets on behalf of
+       the processes.
+ (vii) Provision for system API
+       The kernal provides various entry points to the processes so that they
+       can request it to perform various tasks.
+
+ 
     
