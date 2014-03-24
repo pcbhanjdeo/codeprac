@@ -1,0 +1,32 @@
+Preprocessor runs before any program compilation.
+
+the preprocessor macros are defined in capital letters.
+
+#define MAX 10
+
+semicolns are not used.
+
+1) what are the most prominet uses of preprocessor ?
+   (a) adding a header file ( #include <cmath> )
+   (b) ensuring that a file is added only once.
+       #ifndef CLASS_A
+       #define CLASS_A
+      
+       class A
+       {};
+ 
+       #endif
+
+       The above will ensure that a class is added only once.
+
+    (c) blocking some code using macro's
+        the values are passed from the command prompt using -D option.
+        check test1.cpp
+        to enable the debug code we have to give the following option.
+     
+        g++ -g -Wall -DDEBUG test1.cpp -o test1
+
+    (d) passing a value to a macro throgh compiler option using -DNAME=10
+
+
+          

@@ -39,4 +39,23 @@ a) The kernal is responsible to perform a variety of tasks:
        can request it to perform various tasks.
 
  
-    
+4) what is the difference between user mode and kernal mode ?
+a) in user mode the processes can acces memory only that is marked as
+   user space, if it tries to access kernal space then a hardware exception
+   is thrown, hardware inturpts help the machine to change from user mode
+   to kernal mode. The process can access any memory location when it is 
+   running in kernal mode.
+
+5) what is the difference between process view and kernal view ?
+a) 
+   Process view:
+   a process dosent know what is its address on the RAM, when is it being scheduled,
+   what is the exact location of the files it needs, how to contact IO devices etc
+   
+   kernal view:
+   kernal maintains the data structure that knows in what order processes needs to be
+   scheduled, what are the exact location of files needed by the processes, what is the
+   mapping between physical memory and swap memory, contacting the IO devices, creating
+   managing and destroying other processes.
+
+6)       

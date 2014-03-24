@@ -1,0 +1,15 @@
+
+  The question here is if we have a class A that has a pointer to class B
+and class B that has pointer to class A, how will be go about accomplishing this ?
+
+ class A
+ {
+   B* b;
+ }
+
+ class B
+ {
+   A* a;
+ }
+
+

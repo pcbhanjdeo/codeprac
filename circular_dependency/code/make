@@ -1,0 +1,9 @@
+
+main: main.o classA.o classB.o
+	g++ -g main.o classA.o classB.o -o 
+
+main.o: main.cpp
+	g++ -g -c main.cpp
+
+classA.o: classA.cpp
+	g++

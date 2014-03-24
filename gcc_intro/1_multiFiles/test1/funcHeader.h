@@ -1,0 +1,2 @@
+
+void funcPrint(int a);

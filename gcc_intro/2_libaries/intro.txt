@@ -1,0 +1,28 @@
+1) what are libaries ?
+   The utility functions are compiled and created as libaries for usage in the user defined function, i.e math functions etc.
+
+2) how many kind of libaries are present ?
+   There are tow kinds of libaries: 
+     static libaries with .a extension, libm.a is a static libary for math functions.
+     shared objects with a .so extension, libm.so is a shared object library for math function.
+
+3) what is the difference between static library and shared object ?
+   The binary belonging to static libabry with .a extension are copied to the binary of the program, making the size of the executable
+   bigger.
+   The shared object on the other hand is loaded by the machine at the run time into ram and because of which the executable size of the
+   program is smaller, this process of loading is called 'dynamic linking'.
+
+4) if two libaries exist both static and shared object then what does the compiler link to ?
+   since shared object consumes less space and is more efficient utilization of the resources the compiler always picks a shared object
+   of the same name rather than a staic libary of the same name.
+
+5) how do you force the compiler to always pick the static libabry when there is a choice ?
+   to reverse the order of preference between both static and shared objects, we should give -static option to the compiler.
+
+6) what are the ways of giving the location of include files and libary files to the compiler when they are situated in non default
+   locations ?
+   there are two ways:
+   a) using -L and -I options in the command line along with paths.
+   b) adding paths to the bash_profile file and eporting the paths.
+   
+

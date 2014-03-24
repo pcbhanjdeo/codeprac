@@ -1,0 +1,66 @@
+1) if there is a file called main.cpp how will you compile it ?
+   following is the command:
+   g++ -g -Wall main.cpp -o main
+   -> g++ is the command here
+   -> -g  is the option we give to enable the debug symbols for gdb debugging
+   -> -Wall is option to enable the warnings
+   -> -o stands to create a object file.
+   -> main.cpp is the file we are compiling.
+   -> main is the executable file.
+
+2) what is the compilation process ?
+   -> compiler compiles the file and creates an object file.
+   -> the linker combines all the object files and generates the executable file.
+
+3) how will you create executable for multi files ?
+    creating a executable file is a two step process,
+    first we create an object file withe -c option 
+    then we use -o option to create the executable
+    check test1 dir.
+   
+    The order of compilation is:
+    g++ -g -Wall -c main.cpp         // creates object file main.o
+    g++ -g -Wall -c funcHeader.cpp   // creates object file funcHeader.o
+    g++ main.o funcHeader.o -o main  // creates executable main
+
+    The above commands create the main executable.
+
+4) is there any order in which object files need to be given for linking process ?
+   The old linkers were order dependent, they search things from left to right.
+   so any function that is used in one object file, thge defination of it is expected in the subsequent object files.
+   so order is very important.
+   but modern linkers search back and forth, so order is not important any more.
+
+5) what are libraries ?
+   There are precompiled utility functions that are used by programs, for example all math functions are put in math library,
+   that file is accessed by -libm or -la option when the linker is used, but to do that appropriate header file needs to be added
+   like <cmath> for math libray functions.
+
+6) what are the default locations where the compiler searches for header file ?
+   There are two locations where the complier searches for header files.
+   /usr/local/include
+   /usr/include
+   The compiler first searches in /usr/local/include and then in /usr/include
+   so if there are two header files with the same name in both the locations, the header in /usr/local/include takes precedence over
+   /usr/include 
+
+7) what are locations where compiler searches for libraries ?
+   There are two locations where compiler searches for libararies
+   /usr/local/lib
+   /usr/lib
+   The compiler first searches in /usr/local/lib and then in /usr/lib.
+   so if there are two libraries with the same name in /usr/local/lib and /usr/lib, then the library in /usr/local/lib takes precedence
+   over /usr/lib
+
+8) what will we do if we are using our own libaries and header files for our functions ?
+   for our own header files we use : -I option before giving the path for header files.
+   for our own library files we use : -L option before giving the path for library files.
+
+9) what are the various options availabe for compilation ?
+   -Wall - for warnings
+   -g    - for debug enabled symbols
+   -std=99 - for C99 standard.
+   -ansi  - for ansi standard.
+   -pedantic - for ansi standard.
+
+

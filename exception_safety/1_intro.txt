@@ -1,0 +1,6 @@
+
+ The idea is to write exception safe code using auto_ptrs.
+
+ we create 3 classes, 2 of them being members of the third.
+
+ 
