@@ -1,0 +1,44 @@
+================================================================================================
+ SYSTEM PROGRAMMING
+================================================================================================
+
+1) what is a system call ?
+a) a system call is a controlled entry point into the kernal which processes use to get a range of services from it.
+
+2) what does a system call do ?
+a) a system call changes the processor state from user mode to kernal mode and gets access to locations that a normal
+   process would not.
+   each system call is identified by a unique number and there are only a limited system calls
+
+3) how are system calls made ?
+a) for a user written program a system call looks just like a regular C function, this C function is nothing but a 
+   wrapper around the system call, all the data needed by the system call are passed as arguments to the C function
+   the validy of the arguments are checked, the appropriate unique number for the system call is loaded from a map
+   and all the arguments are loaded into a register, then a interupt (0x80) is passed to change the processor state 
+   from user mode to kernal mode and the system call is executed and the return value is passed back to the wrapper
+   C function.
+
+4) what happens is the system call fails ?
+a) when a system call fails the call returns a negative number, the wrapper C function negates the negative number 
+   and putrs that value in the global errno variable, and returns -1, when the application code recieves -1 from 
+   the wrapper C function it is expected to check the global errno variable and take appropriate action.
+
+5) what are library functions ?
+a) libraby functions do a million things, quite a few of them do not deal with system calls, eg: string manipulation
+   functions, but many of them are nothing but wrapper functions around system calls and provide a user friendly 
+   interface to system calls.
+   eg: fopen() calls open() function internally
+       malloc() and free() call brk() call internally
+       printf() calls write() function internally, where printf() formats the output data, write() just outputs bytes
+
+6) what is "list dynamic dependencies" or ldd command ?
+a)
+
+7) how do you handle errors from system calls ?
+a) when a system call returns error, it returns -1, we need to check if the return value == -1 and then check for the
+   global variable errno value, we can get all the errors from error.h file and also all these errors can be printed
+   using perror() function.
+
+8) what happens if the system call returns a valid -1 value ?
+a) to deal such a situation, first we need to make the value of the errno variable to '0' and then make the call, after 
+   it returns -1 check for the errorno variable value if it changed from 1  
