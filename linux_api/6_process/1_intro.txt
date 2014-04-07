@@ -1,0 +1,31 @@
+===================================================================================================
+===================================================================================================
+====                         PROCESSES                                                         ====
+===================================================================================================
+===================================================================================================
+
+1) what is a program ?
+a) a program is a file containing range of information that describes how to create a process at run time.
+
+2) what are the information that a program contains ?
+a) a program is bound to have some information that will be used by kernal to create a process.
+   i) an entry point 
+  ii) object code that encapsulates the algoritherm.
+ iii) path of shared and static libraries
+  iv) data needed to execute the program
+
+3) what is a process ?
+a) a process is an instance of an executing program, a process is an abstract entity defined by the kernal to which
+   system resources are allocated to execute a program.
+
+4) how do you get a process id of a program ?
+a) we can use the system call getpid() it returns the process id of the process that called it.
+
+5) what is getppid() ?
+a) ppid is the process id of the parent process that spawned the current process. 
+   check pid.cpp file
+
+6) how do you get the whole process tree to print ?
+a) we get the whole process tree by printing pstree command.
+
+

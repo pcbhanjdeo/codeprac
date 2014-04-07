@@ -1,0 +1,20 @@
+=========================================================================================================================
+=========================================================================================================================
+=========================================================================================================================
+
+1) what is a thread ?
+a) a thread is an eecutable thing that can execute simultaneousely.
+
+2) what is a mutex ?
+a) a mutex is a mechenisam that is provided to ensure that threads do not collide with each other.
+   it is a lock kind of a thing by which at any point of time only one thread executes a task 
+   and prevents other threads to do the same.
+
+3) what is a condition variable ?
+a) a condition variable is like a red light, it tells a thread to wait until it is safe to conduct its operation.
+
+4) what is synchronization ?
+a) synchronization is the activity that is achieved by a combination of mutex's and condition variables using which 
+   two threads do not perform a same operation on the same data segment at once.
+
+5)  

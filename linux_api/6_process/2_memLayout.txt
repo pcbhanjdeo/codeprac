@@ -1,0 +1,23 @@
+1) what are the major memory segments in a process ?
+a) the following are the major memory segments in a process.
+   1) text segment - contains the code in machine instruction format, it is read only.
+   2) initialized memory segment - contains all the global and static variables that are initialized.
+   3) uninitialized memory segment - contains all the global and static variables that are not initialized.
+   4) stack - this is a dynamically growing and shrinking segment where each frame is allocated to each called function and it will contain
+              all the variables internal to that function.
+   5) heap - this is the area from which memory can be dynamically allocated.
+
+2) why do we need two different segments for initialized and uninitialized global and static variables ?
+a) when storing on the disk, no seperate space is required for uninitialized variables.
+
+3) what is an Application Binary Interface (ABI) ?
+a) an application binary interface is a set of rules that specify how a binary executable exchanges information with any service, an ABI
+   specifies which regsiters and stack locations should be used for information exchange and how they are to be interpreted.
+
+4) what is virtual memory ?
+
+5) what is page error ?
+
+6) what is page space ?
+
+7) 

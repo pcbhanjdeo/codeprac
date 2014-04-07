@@ -18,9 +18,9 @@ a) for a user written program a system call looks just like a regular C function
    from user mode to kernal mode and the system call is executed and the return value is passed back to the wrapper
    C function.
 
-4) what happens is the system call fails ?
+4) what happens if the system call fails ?
 a) when a system call fails the call returns a negative number, the wrapper C function negates the negative number 
-   and putrs that value in the global errno variable, and returns -1, when the application code recieves -1 from 
+   and puts that value in the global errno variable, and returns -1, when the application code recieves -1 from 
    the wrapper C function it is expected to check the global errno variable and take appropriate action.
 
 5) what are library functions ?
@@ -32,7 +32,9 @@ a) libraby functions do a million things, quite a few of them do not deal with s
        printf() calls write() function internally, where printf() formats the output data, write() just outputs bytes
 
 6) what is "list dynamic dependencies" or ldd command ?
-a)
+a) ldd gives the list of shared libabry dependencies.
+   TODO : create a shared libaray object, add it to the file and run ldd on it.
+   -> when we add vector or string, why doesnt it show up on ldd command when they are unused. 
 
 7) how do you handle errors from system calls ?
 a) when a system call returns error, it returns -1, we need to check if the return value == -1 and then check for the
@@ -41,4 +43,47 @@ a) when a system call returns error, it returns -1, we need to check if the retu
 
 8) what happens if the system call returns a valid -1 value ?
 a) to deal such a situation, first we need to make the value of the errno variable to '0' and then make the call, after 
-   it returns -1 check for the errorno variable value if it changed from 1  
+   it returns -1 check for the errorno variable value if it changed from 0 to some number, the above initialization is 
+   done to ensure that we do not endup printing the error value of previous error even if the current call was 
+   executed succesfully.
+
+9) how do you use a perror() function ?
+a) void perror(char* s) function prints the error no in the human readable format, it takes a const char*, mostly the file
+   name where the perror() is being called, it looks at errno variable value and prints the assosiated string with it
+   the headers <errno.h> and <cstdio> have to be included.
+
+10) what is strerror() function ?
+a)  char* strerror(int errorno) function takes the error number as input and returns the corresponding error string
+    check perror_test for usage.
+
+11) what is the difference between perror() and strerror() ?
+a)  perror() prints the string assosiated with current global errno value, there might be a situation where we have 
+    to make multiple library calls and each call if fails over writes the eisting errno value, so we may want to
+    save the value and use it at later point in the program, that is where strerror(int errno) comes into 
+    picture. 
+
+12) how are errors from library functions are monitered ?
+ a) we need to depend on the documentation of the library function and toi how to handle the errors, quite a few 
+    library functions are nothing wrappers around system calls, we can use perror(char* s) or strerror(int errno) 
+    functions to diognize the errors there, but more than quite a few library functions do not deal with system calls
+    at all, it will be wrong to depend on perror() or strerror() functions for those errors.
+
+13) what are the portability issues one might encounter and how are they addressed ?
+ a) a pointer might be a defined as int in one implimentation and long in another, same is the case with process id or
+    group id, so we use typedef functionality and create a common variable.
+    eg:
+    typedef pid_t int or typedef pid_t long
+    our programs use pid_t to store the value of the of the process id, irrespective of what the underlying type it is,
+    due to typedef program remains portable.
+
+14) what happens if we use printf() on pid_t ? what is the problem we encounter ?
+ a) the problem is when we give printf() we have to specify the what format that particular variable we are printing
+    belongs to and we do not know if it is a int or a long on the particular system.
+    we get around this issue by type casting the pid_t variable as long and this ensures that no truncation happens.
+    
+    pid_t my_pid;
+    my_pid = getpid();
+    printf("value of the pid = %ld\n" , (long) my_pid);
+
+15) what is a reboot() function call ? 
+     
