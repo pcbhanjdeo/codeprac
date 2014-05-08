@@ -1,0 +1,98 @@
+----------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------
+
+1) what are the things needed to use pthreads in your programs?
+a) compilation needs to be done with -pthread option.
+   header used : #include <pthread.h>
+
+2) what is pthread_t ?
+a) pthread_t is an opaque data type that is used as a handle for a thread, it is called a thread identifier.
+   a pthread_t variable is declared and is passed to pthread_create() function as a reference, this fills in the required data in it.
+
+3) where are pthread_t value stored ?
+a) the value of pthread_t is stored in a new struct or an extern variable, the process needs to have it to perform various operations
+   on the thread, like to find out if it has finished doing its job or to detach it (kill it) etc.
+
+4) what is pthread_self() function ?
+a) the signature: pthread_t pthread_self();
+   pthread_self() function is used to get the identifier to itself.
+
+5) how can a thread terminate itself ?
+a) a thread can terminate itself by calling pthread_exit(void*) function.
+   function signature : int pthread_exit(void* val_ptr);
+   the int value returned is 0 if successfull or some other number if it fails.
+   val_ptr is a return value, it fills in the object and returns its address when it is exiting,
+   The object is normally a global object or a new object that the thread created where the required 
+   information is filled and returned.
+
+6) what is pthread_equal(pthread_t pt1, pthread_t pt2) function does ?
+a) pthread_equal() takes two identifiers and tells us if both the identifiers are refereing to the same thread, it returns a non zero value
+   if both the threads are same and return a zero value otherwise.
+   check test1.cpp
+
+
+7) what is an initial thread ?
+a) an initial thread, also known as main thread, is like just any other thread but it creates other threads, we can get its identifier 
+   with the helf of pthread_t pthread_self(); API or terminate itself with the help of int pthread_exit(void* ); API. 
+   initial thread is important because when it terminates all the threads that it created automatically get terminated as well.
+   this is called evaporation.
+
+8) what is detaching a thread ?
+a) using the api int pthread_detach(pthread_t pid); we can detach a thread, by detaching a thread we are telling the system that we do 
+   not need this thread any more once it is finished doing what it does and the system can reclaim the resources that are being used 
+   for it, the return value 0 signifies that the thread has been succesfully detached.
+
+9) what happens if you do not detach a thread ?
+a) following is the pthread_detach API:
+   int pthread_detach(pthread_t tId);
+   when we do detach we are telling the OS that once the thread execution is complete it can reclaim the memory alloted to it,
+   if we do not do pthread_detach(), the OS will not get back its virtual memory.
+
+
+10) what is the difference between pthread_exit() and pthread_detach() ?
+a)  
+
+
+11) what is pthread_join() ?
+a)  the signature of pthread_join() is:
+    int pthread_join(pthread_t tId, void** val_ptr);
+    when we do a pthread_join() on a thread is detached, any value that is needed by the caller is put in val_ptr by the thread
+    and the calling function is blocked from execution till the called thread finishes its execution.
+
+12) what will happen if we do not use pthread_join() function ?
+a)  if pthread_join() is not used then the main thread will finish execution with out waiting for the other threads, this will lead to
+    incomplete execution, one way of ensuring that all threads execute before we exit is calling sleep(size_t) function, that will 
+    stop the main thread from exiting.
+
+13) how will we ensure that main thread is destroyed without destroying the called threads ?
+ a) we can do a pthread_exit() on main thread, this will exit the main thread but will keep the process alive, so all the 
+    other worker threads will continue execution till they are done.
+
+14) what are the arguments passed to pthread_create() ?
+ a) signature: int pthread_create(pthread_t* thread_id, const pthread_attr_t* attr, void* (*start)(void* ), void* arg);
+    thread_it        -> is the variable where thread_id is filled and sent back.
+    pthread_attr_t*  -> is the artibutes that are to be given to the thread.
+    start            -> is a function pointer that gets called when a thread is created.
+    arg              -> is the arguments needed by that function.
+
+    if the thread creation is succesfull then 0 is returned.
+
+15) what are the various thread states ?
+ a) there are four major thread states:
+    READY - when thread starts.
+    RUNNING - when the thread is executing the function it is passed in pthread_create call.
+    BLOCKED - when the thread is waiting for a conditional value or a mutex.
+    TERMINATED - the thread has finshed execution, it has not been detached or joined, after which it is recycled.
+
+
+    
+
+TO DO:
+-------
+1) test the following scenarios
+   (a) create sub threads print values in them and exit main thread via return
+   (b) create sub threads, use pthread_join() and see what happens to sub threads
+   (c) create sub threads, use pthread_detach() on all of them and then exit main via return.
+   (d) create sub threads, use pthread_exit() on the main thread and see how execution happens.
+
