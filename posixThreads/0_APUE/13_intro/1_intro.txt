@@ -1,0 +1,65 @@
+1) why use threads ?
+a) in a program where there are multiple tasks, each one independent of the other then we might put each task in a different 
+   thread and get more through put, a program with a single thread invariably serializes the task execution, even when it is
+   not nessesary.
+
+2) what is the best example of multi threading ?
+a) interactive programs can have improved response time by assigning a thread to deal with user input output and another thread 
+   to deal with rest of the work.
+
+3) can multi threading be used on a uni processor ?
+a) multi threading has nothing to do with number of processors, when we seperate related, independent tasks it simplifies the
+   program and uniporcessor can work on one thread when another thread is blocked effectively increasing the through put.
+
+4) what is the difference between a process and a thread ?
+a) A Process is a program in action, a Thread can be considered a light weight process.
+   A Process will have its own memory space and that is why cretaing a process is intensive.
+   A Process can have multiple threads which will execute independent tasks with in the process.
+   Unlike Processes the Threads share the same memory and code segment, so communication between threads is easy.
+   Communication between a process is painfull.
+   The upside is since each process has its own memory space if one process shuts down for what ever reason it dosent effect
+   any other process.
+   The down side for the thread is that since they share the same memory space they might step on each other, a thread fails,
+   then entire program shutsdown.
+
+5) what is a thread id ?
+a) a thread id is a unique structure that identifies one thread from another, unlike process id which is unique for the entire
+   system, a thread id makes sense only in the context of the process.
+
+6) what is pthread_t ?
+a) a pthread_t is a data type which is used to store thread id, it has multiple implimentations, on Linux system it is a
+   long unsigned int.
+   typedef long unsigned int pthread_t
+
+   in OS X, pthread_t is a type of a struct where predefined values are passed.
+
+7) how do we know if both threads are same ?
+a) to know if two threads are same we need to use the function:
+   int pthread_equal(pthread pt1, pthread pt2);
+   if both threads are same, we get a non zero result, other wise we get 0 in return.
+
+   even though we know that pthread_t is a unsigned long int, we should never use == to check if we are seeing the same thread,
+   pthread_equal() function has to be used, as it can be a struct and using == to check the equality is not a portable behavior.
+
+8) How do you create a thread ?
+a) we use the thread create function to create a thread.
+   following is its signature:
+
+   int pthread_create(pthread_t* ptPtr, const pthread_attr_t* void, void* (*start)(void* ), void* arg_val);
+
+   ptPtr            ---> the thread id for new thread that is being created.
+   pthread_attr_t   ---> the struct where attributes of threads are passed.
+   start            ---> function pointer where theread starts its execution.
+   ret_val          ---> the arg val that is passed to start function.
+
+9) if I want to pass more than one argument to start function how can I   
+   accoplish that ?
+a) we can create a struct with all the arguments in it and pass it to 
+   the start function as a void* object.
+
+10) when we create a new thread using pthread_create(), which thread will
+    start executing first, the parent thread or the new thread ?
+a)  no gurantee is given as to which thread will start executing first.
+
+
+         
