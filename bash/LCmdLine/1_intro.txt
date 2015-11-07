@@ -1,0 +1,64 @@
+1) what is a script?
+a) a script is a bunch of linux commands put in a file which can be executed.
+
+2) what is the comment in bash?
+a) # token is a comment in bash.
+
+3) how would you tell the shell what script it is?
+a) we tell the shell what script it is by a line called shabang.
+   #! /bin/bash 
+   here we are giving the location of the bash binary.
+
+4) what is a simple hello world script in bash?
+a) #! /bin/bash
+   echo "hello bash world"
+
+5) How would you make the script executable?
+a) we make a script file with .bash extension for identification
+   Then we change the permissions given to it to +755, with this we can read write and execute while others can only read and execute it.
+
+6) How do we write a single command over multiple lines?
+a) we can write a single command over multiple lines with the help of \ command.
+   the \ charecter at the end tells us that read the next line as this line itself
+   eg:
+   #! /bin/bash
+   pwd \
+   && ls -l
+
+7) How do you create a variable, and how is value assigned to it ?
+a) since this is a script, no types need to be declared like in C. 
+   $ a=10, will assign a value of 10 to the variable a, $ a = 10, is an error for some reason. 
+
+8) can we change the type of variable run time ?
+a) yes we can, 
+   a=10 #a is a int here
+   a="bhanj" # a is string here.
+
+   The type to which a variable belongs to depends upon the last assignment.
+
+9) why is a=10 acceptable shell command and a = 10 an error ?
+
+
+10) is there any other way to declare a variable and also make it write proof?
+ a) equivalent to declaring a constant variable in regular programming languages, we have a declare command in bash
+    $ declare -r a=10
+
+    The above command makes the variable a read only (with -r option) and any modification to that variable in the subsequent lines
+    is considered an error since no one has permission to over write this variable.
+
+11) can we declare a regular variable with out -r option ?
+ a) yes we can:
+    $ declare a=10
+    $ declare -r b="bhanj"
+
+   The above commands ensure that a is a intezer and is mutable, while b is a string constant, may be declare should be used for
+   all variables just for the sake of readability. 
+
+12) How do we ensure that a particular variable is assigned to intezers only ?
+ a) we ensure that a particular value is only used for intezers by using the -i option.
+    $ declare -i a=10  #ensures that the variable a is never takes a string value.
+
+    when we assign a non intezer value to a variable that is declared with a -i (intezer) option, it takes a value of 0.
+
+13) 
+ 

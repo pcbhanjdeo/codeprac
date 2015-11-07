@@ -1,0 +1,69 @@
+LEARN PYTHON THE HARD WAY:
+----------------------------
+
+1) How to check which version of python you are using?
+a) $ python --version
+   prints which version of python is being used.
+
+2) How do you compile a python program? 
+a) $ python ex.py 
+   where we are invoking the python compiler with python command and ex.py is the file name and .py is the extension for python.
+
+3)will a file compile if we use a different extension instead of .py, say .abc ?
+a) it works, test1.abc prints what we want it to print.
+
+4) How do you print something in python?
+a) "print" keyword followed by a quoted string is used to print strings
+   "print" followed by an expression can also be used.
+
+    eg: print "bhanj is god"
+        print 5+7   // prints 12 
+
+5) How do you comment some thing in python?
+a) we use a # sign at the beginning of the line to comment it, # = // in C++.
+
+6) what happens if you do not give quotes for a string in print statement?
+a) print bhanj is god
+   throws error.
+   only way to print the above line is:
+   print "bhanj is god"
+
+7) what is % operator ?
+a) a % is called a modulus operator, it gives the reminder when a division is performed.
+   12 % 2 = 0, since 12 is a multiple of 2.
+   12 % 10 = 2, since 2 is the reminder when 12 is divided by 10.
+
+8) what happens if you print 10/4 ? 
+a) 10 divided by 4 is 2.5, but we see 2
+   check ex4.py
+   to get a proper fraction value we need to use atleast one variable as a flotiong point.
+   i.e  10/4  = 2
+        10.0 / 4.0 = 2.5
+        10   / 4.0 = 2.5
+        10.0 / 4   = 2.5
+
+9) How do you mix strings and expressions?
+a) we mix string and expressions by using ,.
+   eg: print "the value of 5 + 7 = ", 5+7
+   output : the value of 5 + 7 = 12
+
+10) what is the operator precedence?
+ a) () has the highest precedence.
+    ** has the next higher precedence.
+    the / and * have equal precedence.
+    the % has next higer precedence.
+    the + and - have equal precedence.
+
+    
+11) what has higher precedence? % or *?
+ a) * has higher precedence over %
+
+12) what has higher precedence? % or +?
+ a) % has higher precedence over +
+
+13) what has higher precedence? * or **?
+ a) ** has higher precedence over *
+
+
+
+ 

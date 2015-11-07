@@ -1,0 +1,255 @@
+THE AWK TUTORIAL
+-----------------
+1) what exactly is awk?
+a) awk is simple tool which takes a set of operations and performs them on each line, looping over 
+   all lines, it is like a for loop, which loops over each line and performs the actions on them.
+
+2) what is the typical use of awk?
+a) printing specific feilds in a file, calculating some simple stuff.
+   a typical example would be say we have a file in which we have few feilds.
+
+   No Name    Age  Sex
+   1  Praveen  33   M
+   2  Sonal    33   F
+   3  Amartya   4   M
+
+   lets say the above is a file which has name age and sex, awk can be used to print based on conditions.
+   --> we can print all the people who are Male  ($4 == M)
+   --> we can print all the people who are major ($3 > 17) 
+   --> we can just print the names of the people (print $2) 
+
+   The possibilities are limitless. 
+
+3) what is the structure of a simple awk program?
+a) awk pattern { action }
+
+4) write a simple awk program that will print the data from emp.data if 4th column is greater than 0 ?
+a) $ awk '$3 > 0 { print $1, $2 * $3}' emp.data
+   here awk is the command
+   $3 > 0 is the conditional or a pattern
+   print <command> is the the action that needs to be performed
+   emp.data is the file on which the action is being performed.
+
+5) if we change the delimiter from tab to comma will the command still work?
+a) it does not work as expected, it gives the comma as well, dosent work as expected.
+   edit: it will, we need to provide FS (feild seperator variable as FS=",") in the BEGIN part of awk program. 
+
+6) what will be the command for printing the employees who did not work ?
+a) $ awk '$3 == 0 { print $1 }' emp.data 
+   we are checking if the third feild is zero (that is they did not work) and then printing the first feild, their name.
+
+7) does the double quote work in the above program instead of single quote?
+a) no it does not, the single quote is a stronger quote than double one in shell, so $1 might be interpreted as a environment variable
+   in the shell, to protect the program from such a mis interpretation single quote ' is used.
+
+8) what are main components of a awk program ?
+a) main components of a awk program are pattern and action.
+   the pattern is the conditional that is out side the paranthesis, the action is the one in it.
+
+9) are both pattern and action compulsory in a awk program ?
+a) atleast one of them have to be present, the other one is taken as all true.
+   eg:
+   $ awk '$3 == 0' emp.data
+
+   prints all the lines where 3rd feild is 0, even though no action is specified.
+
+   similarly
+
+   $ awk '{print $3}' emp.data
+
+   prints the 3rd column in the entire file, the pattern is taken as true.
+
+8) How many files can be given as input ?
+a) the structure of the command is:
+
+   $ awk 'program' file1 file2
+ 
+   here awk executes the program on all the lines of the input files one by one.
+
+9) what happens if no file name is provided ?
+a) if no file name is provided, then awk takes the input from stdin, and executes the pattern one line at a time. 
+   till it gets the EOF command, i.e ^d.
+   the above functionality is used to test the program with out having to create a file.
+
+10) How do you give a program file as an input to awk command?
+a)  an awk program file can be given as an input using -f command.
+    $ awk -f progFile inputFile
+
+    unlike in the command line no single quote is needed in the program file.
+
+11) what is the comment in awk?
+ a) like bash the comment is still #
+
+
+12) what does $0 stand for?
+ a) $0 stands for the whole line.
+    awk '{print $0}' fileName
+    prints all the lines in the file.
+
+    for example in the above file where there were ages:
+    
+    Praveen   33  M
+    Sonal     33  F
+    Amartya    4  M
+
+    say we only want to print the people who are major, the command would be.
+
+    $ awk '$2 >= 18 { print $0} family.data' #if second column value is more than or equal to 18.
+
+    output:
+    -------
+    Praveen 33 M
+    Sonal   33 F
+
+    example 2: print male members of the family
+
+    $ awk '$3 == "M" {print $0}' family.data #if third column has M in it.
+
+    output:
+    -------
+    Praveen 33 M
+    Amartya  4 M
+
+13) what is NF?
+ a) NF stands for number of feilds in a record.
+    we can print the number of feilds in a record, or we can print a line based on number of feilds is more or less than a particular
+    number and the possibilities are limitless.
+
+    example 1:
+
+    Praveen  33  M  B.Tech
+    Sonal    33  F  MBA
+    Amartya   4  M
+
+    The above file has name, age, sex and qualification, if we want to print the number of feilds, then
+
+    $ awk '{ print NF, $0}' familyQual.data
+
+    output:
+    ------
+    4 Praveen 33 M  B.Tech
+    4 Sonal   33 F  MBA
+    3 Amartya  4 M
+    0 
+
+    as can be seen the number of feilds in the record are printed, it is 4 for all lines and since there is a empty line at the end
+    0 is printed.
+
+    example 2:
+
+    How to print people with some qualification?
+    This can be done by making the NF as a conditional.
+
+    $ awk 'NF > 3 { print $0 }' familyQual.data
+
+    output:
+    -------
+    Praveen 33 M  B.Tech
+    Sonal   33 F  MBA
+
+    as can be seen, since Amartya has no qualification available his data is not printed.
+
+14) can the awk and NF be used in conjunction with xargs on find command and print line with less than 4 feilds, like the issue we 
+    had at work?
+ a)
+
+    a b c d
+    e f g
+    h i j k
+
+    $ find . -name fileExpr | xargs awk 'NF < 4 { print $0 }' 
+
+    output:
+    ------
+
+    pcbhanjdeo:1_tutorial$ find recDir -name *.out | xargs awk ' NF < 4 { print $0}'  
+    5 6 7
+    16 17 18
+    27 28 29
+
+    awk command works recursively on xargs command along with find command helping us to figure out what are the files where
+    we have feilds less than a particular number.
+
+15) Can computations be performed on the feild values?
+ a) yes computaions can be performed.
+
+    $ awk '{ print $1, $2*$3}' fileName
+
+    in the above command first feild and the product of second and third feilds are printed.
+
+    Praveen  33  115
+    Sonal    33   70
+    Amartya   4   17
+
+    output:
+    ------
+    Praveen 3795
+    Sonal 2310
+    Amartya 68
+
+16) in the above example what will happen if a particular feild is empty?
+ a) if a particular feild is empty or is filled by a string them product of two feilds becomes 0 and that is what is printed.
+
+    Praveen 33 115
+    Sonal   33  70
+    Amartya  4   
+
+    Praveen 33 115
+    Sonal   33  70
+    Amartya  4  "bhanj"
+
+    for both the above inputs the output would be:
+
+    output:
+    --------
+    Praveen 3795
+    Sonal 2310
+    Amartya 0
+
+
+17) what does NR stand for?
+ a) NR is a built in variable which stands for Number of lines read.
+    for the above input and the command
+
+    $ awk '{print NR, $0}' fileName
+
+    output:
+    -------
+    1 Praveen 33 115
+    2 Sonal   33  70
+    3 Amartya  4  Abc 
+ 
+18) How do you put text in the middle of output?
+ a) we can put text by using a double quote.
+
+    $ awk ' {print "The Age of " $1 " = " $2}' fileName
+
+    input:
+    ------
+    Praveen 33 M
+    Sonal   33 F
+    Amartya  4 M
+
+    output:
+    -------
+    The age of Praveen = 33
+    The age of Sonal = 33
+    The age of Amartya = 4
+    The age of = 
+
+    explanation:
+    ----------
+     There is an empty line at the end of the file, as awk loops around each line and it does not get anything, then it prints the
+     dangling empty line as
+     "The age of = "
+     since all the feilds in that line are empty.
+
+    NF > 0 is added to the above command to ensure that no empty lines are printed in the out put.
+
+19) How would you print formated fancy output ?
+ a) to print a fancier output we use printf() function, this is like it is in C Programming.
+    printf(format, value1, value2 .... value n);
+    where format is the string that needs to be printed literally interspersed with format specifiers 
+    like %, which print the values.
+
+20)  

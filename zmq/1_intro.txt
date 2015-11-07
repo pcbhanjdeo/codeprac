@@ -1,0 +1,48 @@
+zmq an introduction:
+----------------------
+
+1) what is a socket?
+a) a socket is one endpoint of a two way communication link between two programs running on the network.
+   a socket is bound a port number, so that the transport layer can identify the application where data packets need to be delivered.
+   a socket is also an abstraction to utilize the network capabilities of various transport processes. 
+
+2) what is the address of a socket?
+a) the address of a socket is <ip address of the box>:<port number>
+   192.168.1.2:5565
+   here 192.168.1.2 is the ip address of the machine
+   and  5565 is the port number where the application is running.
+
+3) what is a port?
+a) a port is a software construct that will serve as a communications endpoint in a computers host operating system.
+   The purpose of the port is to uniquely identify the applications or processes that are running on a single computer 
+   and there by enable them to share a single physical connection.
+
+4) How many ports are available on a box?
+a) a port is a 16 digit unsigned intizer, so its value ranges from 0 to 65535, of which first 1024 are reserved for internet and 
+   other OS activities.
+
+5) what is binding to a socket means?
+a) for a server to recieve requests from a client it must have a address where the transport layer sends its requests, 
+   when we create a socket, we need to tie it to an address, this process is called binding a socket.
+
+6) what is ZMQ_REQ and ZMR_REP stand for?
+a) ZMQ_REQ stands for zmq request socket
+   ZMQ_REP stabds for zmq response socket.
+
+7) what is a client server model?
+a) a client is a program that requests a service, a server is a program that provides a service.
+   a server always listens in a port, for this we need to 'bind' the server socket to a port,
+   a client initiates the communication hence it needs to 'connect' to the server port.
+
+8) what is the order of calls for client socket ZMQ_REQ ? 
+a) The client initiates the conversation, so the calls are:
+   zmq_send() and zmq_recieve(), if we send two zmq_send() in an order or two zmq_recieve() then we get -1,
+   send and recieve have to come one after another.
+
+9) what is the order of calls for server socket ZMQ_REP ?
+a) the server gets the request and then responds to it, so order of the calls is reversed for server.
+   zmq_recieve() followed by zmq_send().
+
+10)  
+
+ 

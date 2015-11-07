@@ -1,0 +1,104 @@
+Meta Charecters and Literals
+-----------------------------
+1) what are meta charecters?
+a) the charecters that are used as a place holders for any other charecters is called a meta charecters.
+   eg: b*c, matches any charecter that starts with b and ends with c.
+
+2) what are the standard meta charecters?
+a) There are 12 standard meta charecters:
+   () {} [] - ? . * ^ $ + | \ 
+
+3) what are anchor charecters and what are they used for?
+a) anchor charecters tell if a particular expression is at the beggining of the line or end of the line.
+   eg1: ^zip matches all the lines that start with zip
+
+        $ grep ^zip testDir/dirlist*
+	testDir/dirlist-usr.bin.txt:zip
+	testDir/dirlist-usr.bin.txt:zipcloak
+	testDir/dirlist-usr.bin.txt:zipdetails
+	testDir/dirlist-usr.bin.txt:zipgrep
+	testDir/dirlist-usr.bin.txt:zipinfo
+	testDir/dirlist-usr.bin.txt:zipnote
+	testDir/dirlist-usr.bin.txt:zipsplit
+
+   eg2: zip$ matches all the lines that end with zip
+
+	$ grep zip$ testDir/dirlist*
+	testDir/dirlist-bin.txt:gunzip
+	testDir/dirlist-bin.txt:gzip
+	testDir/dirlist-usr.bin.txt:funzip
+	testDir/dirlist-usr.bin.txt:gpg-zip
+	testDir/dirlist-usr.bin.txt:mzip
+	testDir/dirlist-usr.bin.txt:preunzip
+	testDir/dirlist-usr.bin.txt:prezip
+	testDir/dirlist-usr.bin.txt:unzip
+	testDir/dirlist-usr.bin.txt:zip
+
+4) How will you pick a line that only has a zip in it?
+a) we use anchor charecter at the beggining and at the end of the word zip
+
+   $ grep ^zip$ testDir/dirlist* 
+   testDir/dirlist-usr.bin.txt:zip
+
+5) How will you match all the empty lines in a file?
+a) empty lines are matched by ^$ anchor charecters.
+
+6) How will you measure how many empty lines are there in a file using grep?
+a) The empty lines is a file can be counted by -c option of grep along with anchor charecters.
+   $ grep -c ^$ <file name>
+
+7) How is the special charecter [] is used ?
+a) [] is used to give a range of values or a few values for a single substitution.
+   eg: $ grep [bg]zip <file names> will match anyline that contains bzip or gzip.
+   
+       grep -h [bg]zip testDir/dirlist*
+       bzip2
+       bzip2recover
+       gzip
+
+8) what will happen if both the charecters are present in a line?
+a) it will still only pick one of the charecters and search for it and then print the result.
+   eg: grep [bz]ip <file name> 
+   will first search for bip and then for zip in each line of the file, bip matches no where but zip matches in many places.
+
+9) what is the negation of charecter set?
+a) when we use a carrot charecter at the beginning of a set, we use it as a negation effectively saying we do not want this
+   expression to be searched.
+   eg: grep [^bg]zip <file name> will match anyline that 'does not' contain bzip or gzip.
+
+   $ grep -h [^bg]zip testDir/dirlist*
+     
+     bunzip2
+     gunzip
+     funzip
+     gpg-zip
+
+10) How would you print all expressions that start with a upper case letter?
+ a) $ grep ^[A-Z] <file name> 
+    The above line prints all the lines in a file that start with a upper case letter.
+
+    $ grep -h ^[A-Z] testDir/dirlist*
+      
+      MAKEDEV
+      ControlPanel
+      FBReader
+      X
+      X11
+
+11) what is the difference between expression ^[A-Z] and [^A-Z] ?
+ a) The difference is in the first expression we are searching for lines that start with a upper case letter.
+    in the second expression we are serching for a line that has 'no' upper case letter.
+
+12) what do we do if we want to search for a literal charecter ^ or - ?
+ a) for ^ we keep it any where but the beggining.
+    [^A-Z] means anything but upper case letters.
+    [A-Z^] means all upper case letters plus the '^' charecter => ^ looses its significance when we put it in a different location.
+  
+    same with - as well:
+    [A-Z] means all upper case letters.
+    [-AZ] means only charecters -, A and Z.  
+ 
+  
+  
+
+

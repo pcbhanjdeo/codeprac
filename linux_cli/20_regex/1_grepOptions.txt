@@ -1,0 +1,40 @@
+Grep Options:
+-------------
+1) what does grep stand for?
+a) general regular expression parser is the full form for grep.
+
+2) what is the syntax structure of grep?
+a) grep [options] expression_that_needs_searching filename_where_the_expression_is_to_be_searched
+
+3) what are the options available for grep and what do they stand for?
+a) -i --- ignore case
+   -n --- prints the line numbers of the line
+   -r --- recursively go through the file system.
+   -v --- inverse search where the line is not matched.
+   -l --- only the file names where the expression is found are printed, not the lines.
+   -L --- only the file names where the expression is not found are printed.
+   -h --- only the lines that match the expression are printed, not the file names where it is found.
+   -w --- whole word no sub string matches.
+
+4) what is ignore case option?
+a) ignore case option -i is used if we want to find a word irrespective of which case it is in.
+   eg: 
+   lets have a file temp.txt with words
+   IGNORE CASE
+   ignore CaSE
+   ignore case
+
+   $ grep "IgNoRe CaSe" exp1.txt
+     IgNoRe CaSe
+
+   $ grep -i "IGNORE CASE" exp1.txt
+     IGNORE CASE
+     ignore case
+     IgNoRe CaSe
+
+5) what will happen if we give opposing actions like -lL with the grep command?
+a) the second option will be conisdered, in the above case -l is ignored and -L is upheald.
+
+ 
+
+    

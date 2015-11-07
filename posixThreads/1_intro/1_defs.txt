@@ -1,12 +1,15 @@
 =========================================================================================================================
 =========================================================================================================================
 =========================================================================================================================
+1) when can you call two events asynchronous?
+a) when two events can proceed independently of each other they are called asynchronous events.
 
-1) what is a thread ?
-a) a thread is an eecutable thing that can execute simultaneousely.
+2) what is a thread ?
+a) a thread is a light weight process that uses the multiple cores of a machine to the hilt and runs two asynchronous events
+   and in the process increases the through put of the program.
 
-2) what is a mutex ?
-a) a mutex is a mechenisam that is provided to ensure that threads do not collide with each other.
+3) what is a mutex ?
+a) a mutex is a mechanisam that is provided to ensure that threads do not collide with each other.
    it is a lock kind of a thing by which at any point of time only one thread executes a task 
    and prevents other threads to do the same.
 
@@ -17,4 +20,32 @@ a) a condition variable is like a red light, it tells a thread to wait until it 
 a) synchronization is the activity that is achieved by a combination of mutex's and condition variables using which 
    two threads do not perform a same operation on the same data segment at once.
 
-5)  
+5) what is thread safe function ?
+a) a thread safe function is one that can be called from multiple threads without destructive results. 
+
+6) How is thread safety achieved?
+a) thread safety is achieved by mutex and condition variables, functions can be locked by mutexes to ensure that at any time only
+   one thread works on it, the mutex will serialize the function.
+
+7) what is better way of achieving thread safety?
+a) better way of achieving thread safety will be to break the code into smaller critical parts, make only parts, ensuring multiple threads
+   working on the same function but not on the same part.
+   it is better to have critical data than critical code, code should be redesigned in a way to ensure that only critical data is thread
+   safe not code, this will ensure all threads can work concurrently on the same function but not on the same date.
+
+8) give an example of critical code and critical data?
+a) say we have a program that writes to the hard disk, we can have a function putchar() that will do that, we can put this function under
+   mutex and at any time only one thread can access the function and can write into hard disk, but this will lock the functions even if
+   they are writing to different files. The correct solution would be to put the streams under mutex, then different threads can execute
+   putchar function parllelly as long as they are working on different streams.
+
+9) in laymans terms what is a thread, mutex and condition variable?
+a) a thread is an execution context, a mutex is a lock that prevents thread from colliding with each other and a condition variable tells
+   a thread when to proceed after a collison is avoided after mutex.
+
+10) what is the difference between a thread and a process?
+a)  a process has its own file discriptor, address space and memory.
+    all the threads assosiated with a process share the same address space, same data segment, stack and file descriptor.
+    it is much easier for a system to switch between two threads than between two processes as all the data is same.
+
+ 

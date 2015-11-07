@@ -1,0 +1,101 @@
+chapter 1:
+A Tour of Computer systems:
+
+1) what is ASCII?
+a) computers do not understand text, so each alphabet or a printable symbol (eg: @, # etc) are mapped to a specific number, such a file
+   is called a text file.
+   eg: Praveen is seen by computer as 
+   where each alphabet is mapped to a specific number.
+
+2) what is the process by which a program is executed?
+a) A program, say hello.C, is written in a human readble format, this text file is converted to machine readble and executable format
+   by other computer programs called a binary.
+   There are four phases by which a hello.c text file is converted to executable binary called hello.
+
+   pre processing phase:
+   --------------------
+   input: 
+   helloWorld.C, source program.
+   
+   output: 
+   helloWorld.i, modified source program, still in human readble text format.
+
+   actions performed:
+   The pre processor modifies the original helloWorld.C file according to the directives that begin with # charecter.
+  
+   eg: #include <stdio.h> is a pre processor directive, since it starts with a #, to add the text of the file stdio.h file to the
+   current helloWorld.C file.
+  
+   eg: #define SIZE 100 pre processor directive searches for the text SIZE in the entire file and replaces it with 100
+
+   once preprocessor is done with the original file and new file called helloWorld.i is created with modified text based upon the 
+   preprocessor directive.
+   note: hello.i is still a text file and can be read like a regular file.
+
+
+   compilation phase:
+   ------------------
+   input:
+   helloWorld.i, modified source program.
+
+   output:
+   helloWorld.s, assembly program, text and still human readble.
+
+   actions performed:
+   The primary job of compilation phase is to turn the modified source program into assembly language program.
+   irrespective of what ever the language is, the assembly language is the common output for them all.
+   Java and C++ though look different produce the same assembly language file, each statement in a assembly language program
+   exactly describes one low level machine language instruction in text format.
+
+
+   assembly phase:
+   ---------------
+   input:
+   helloWorld.s, assembly program
+
+   output:
+   helloWorld.o, relocatable object file, assembly program but in binary format, not human readable.
+
+   actions performed:
+   assembler reads the assembly language code and converts it into binary format, called relocatable object file, it has a .o extension.
+   the above object file has assembly language instructions encoded in binary format rather than charecters. 
+   the object file is not human readable.    
+
+
+   linker phase:
+   -------------
+   input:
+   helloWorld.o and other library object files.
+
+   output:
+   executable object file. 
+
+   actions performed:
+   The object file that is created from the code written by us is individually insufficent to execute, it needs to be 'linked' to
+   the object files of the standard libraries that we use in our code, linker performs the linking of our object file and other
+   object files and generates a file 'executable object file'. This file can be loaded by the machine into memory and will be executed
+   by the system.
+
+
+ 
+   3) what is the command to generate the file after pre processing of the file ? 
+   a) -E option should be used to convert a text file to a pre processed file.
+      eg: gcc -E test1.C generates the preprocessed version of the source code file. 
+
+   4) what is the command to generate the assembly program of a file, i.e helloWorld.s file from helloWorld.C ?
+   a) -S option is used to generate the assembly version of the source code file, this is generated after compilation.
+      gcc -S helloWorld.C  //generates helloWorld.s, a file with assembly code, which is input to assembler that converts it into
+      an object file helloWorld.o
+
+   5) how to convert a source file to a relocatable object file?
+   a) -c option should be used to convert a source file to relocatable object file.
+      gcc -c test1.C // generates test1.o file
+
+   6) how to invoke a linker and create a executable object file?
+   a) -o option should be used to add up all the object files and generate a single executable file.
+
+ 
+ 
+   
+
+   

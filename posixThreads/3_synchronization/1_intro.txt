@@ -1,0 +1,63 @@
+ 3 SYNCHRONYZATION
+
+1) what is an invarient?
+a) invarients are the assumptions made by the program, it is the relation between the data, if the invarients are broken then the program
+   is broken.
+   eg: in a queue, the head pointer is either NULL or points to the first element in the queue, each element in the queue points
+       to the next element or NULL if it is the last element, this is the assumption on which the entire operations on a queue data 
+       structure depends.
+
+2) what is synchronization in the light of invariants ?
+a) most of the invarients in the code are routinely broken, the trick is to repair the invarients before some unsuspecting code runs into 
+   it, when we delete an element in the queue, we are braking the invariant, but we are mending it right away by changing the address
+   assosiated with the next pointer.
+
+3) what are critical sections?
+a) critical sections of a code are parts of code that effect the shared state.
+
+4) what are predicates?
+a) predicates are state of invariants needed by the code, like queue is empty etc.
+
+5) what is a mutex ?
+a) mutex is short form for mutual exclusion, various threads have to work on same critical data, if more than one thread works simultaneously
+   the data will be in inconsistent state, so each thread is allowed to lock the critical section, finish its work, leave the section
+   in logically consistent state for the next thread to operate upon.
+
+6) How do you initialize mutex ?
+a) we initialize mutexes using a macro.
+   pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
+7) what is the API for creating a mutex ?
+a) int pthread_mutex_init(pthread_mutex_t *mutex, pthread_mutexattr_t *attr);
+
+8) How do you destroy a mutex ?
+a) int pthread_mutex_destroy(pthread_mutex_t *mutex);
+
+9) How should we pass a mutex from one function to another ?
+a) making a copy of a mutex is undefined, a mutex should always be passed as a pointer.
+
+10) where are the mutexes declared ?
+ a) a mutex is declared in global scope, if it needs to have only file visibility then it is made static and if it is used beyond a file
+    then it is declared as extern.
+
+11) what is the value of PTHREAD_MUTEX_INITIALIZER ? 
+ a) it is unprintable check test1.cpp
+
+12) what is the difference between creating a mutex using:
+    pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZE;
+    and
+    pthread_mutex_t mutex;
+    pthread_mutex_init(&mutex, NULL);
+
+ a) There is none, if we want our mutex to have special powers then we go with dynamic in itialization, i.e using pthread_mutex_init()
+    those special powers are given using pthread_mutexattr_t variable.
+    as a rule, always prefer static initialization when you can and use dynamic initialization when you must.
+
+13) what are the APIs to lock and unlock a mutex?
+ a) int pthread_mutex_lock(pthread_mutex_t* mutex);
+    int pthread_mutex_trylock(pthread_mutex_t* mutex);
+    int pthread_mutex_unlock(pthread_mutex_t* mutex);
+
+  
+
+  

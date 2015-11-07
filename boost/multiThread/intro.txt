@@ -1,0 +1,26 @@
+C++ cookbook chap 12:
+----------------------
+1) what is the header file that should be included for boost threads?
+a) the header file is:
+   #include <boost/thread/thread.hpp>
+   #include <boost/thread/xtime.hpp>
+
+2) How do you create a thread object in boost ?
+a) the thread object is created by invoking the constructor of the thread object and then passing the function pointer 
+   of the function.
+   boost::thread myThread(func);
+
+3) what is a yield() function ?
+a) on a single processor, we use the yield() directive to the compiler to tell it that we would like to give away the time slice
+   of the current thread to others.
+
+4) what is join()?
+a) a join() is like a barrier, if main thread finishes its work before child threads it will close the process killing the
+   child threads in the process, if we use join() call then the main thread waits for the child thread to finsh.
+
+5) write a simple multi threaded application with and with out join where the thread prints writes first thousand
+   numbers to the output see what happens ?
+
+6) repeat the above excersize with yield() function with out join(), what is the result?
+a) 
+

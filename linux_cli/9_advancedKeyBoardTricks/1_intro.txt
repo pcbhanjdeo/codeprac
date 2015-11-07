@@ -1,0 +1,53 @@
+9 COMMAND LINE TRICKS
+------------------------
+1) cntrl - a    ---->  move to the beginning of the line
+2) cntrl - e    ---->  move to the end of the line
+3) alt - f      ---->  move one word forwards
+4) alt - b      ---->  move one word backwards
+5) cntrl - l    ---->  clean the screen and move the cursor to the top left corner
+6) alt-l        ---->  convert the alphabets from cursor location till the end to lower case
+7) alt - u      ---->  convert the alphabets from cursor location till the end to upper case
+
+cut & paste command:
+-------------------
+1) cut is called kill 
+2) paste is called yank
+3) the buffer where copied text is present is called kill ring.
+
+1) cntrl-k   ----> kill the text from current location till the end of the line.
+2) cntrl-u   ----> kill the text from current location till the beggining of the line.
+3) cntrl-y   ----> yank the text from the kill ring at the cursor location.
+
+
+History
+---------
+1) where is the history of commands given stored?
+a) history is stored in the home directory .bash_history file.
+
+2) How many commmands are stored?
+a) last 500 commands are stored.
+
+3) what is the best way to check History of the commands?
+a) the best way:
+   $ history | less
+
+4) How do you search a command in history?
+a) use history command in conjunction with grep.
+   $ history | grep <cmd>
+
+5) How to repeat the immideate old command?
+a) we repeat the immideate old commad by typing
+   !!
+
+6) How do you repeat a old command ?
+a) by default bash stores last 500 commands in bash_history file with numbering, the way to run the last command is:
+   $ !88 #where 88 is the command number in bash_history.
+
+7) How do you do a reverse incremental serach?
+a) we use the command cntrl - r, and type the command, it will match the last command, if it isnt the command you are looking for, then
+   pressing cntrl-r gives the previous command.press <ENTER> to execute that command or cntrl-g to exit the reverse incremental search.
+
+8) How does cntrl-o work ?
+a) cntrl-o is used for running a series of old commands in succession, need to check the practical application of it.
+
+ 

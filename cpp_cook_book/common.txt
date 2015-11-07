@@ -1,0 +1,22 @@
+1.COMMAND LINE OPTIONS
+--------------------
+when compiling a file we can give the command line option with -DName[=value]
+
+a) -DName
+if we want to do some thing in debug but not in release mode, we do the following.
+
+#ifdef DEBUG
+  cout <<"print out a debug statement" << endl;
+#endif
+
+The above code will print if we give the following command.
+
+$ g++ -g -Wall test1.cpp -o test1 -DDEBUG
+
+the above code will NOT print if we remove the DEBUG command line option
+
+$ g++ -g -Wall test1.cpp -o test1
+
+b) -DName=value (int)
+
+

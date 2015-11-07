@@ -1,0 +1,17 @@
+1) what is egrep?
+a) egrep stands for extended grep, here extended symbols are added from POSIX.
+
+2) what meta charecters belong to basic regular expressions and what belong to extended regular expressions?
+a) out of 12 charecters 7 belong to basic and 5 belong to extended.
+   basic: [] - * . \ ^ $
+   extended: | + () {} ? 
+
+3) How would you invoke extended regular expressions?
+a) we invoke extended regular expressions by using egrep command or grep -E command.
+
+4) what are the common metacharecter exception between grep and egrep?
+a) the 4 charecters () and {} are treated as common between grep and egrep, though they are invoked differently.
+   grep: () and {} need to be invoked with escape charecter \ to make them meta charecters, else they are taken as lierals.
+   egrep: () and {} are meta charecters by default and escape charecter \ is used to make them behave like literals.
+
+5) what are the meta charecters 

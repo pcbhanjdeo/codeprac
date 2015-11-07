@@ -51,7 +51,10 @@ a) following is the pthread_detach API:
 
 
 10) what is the difference between pthread_exit() and pthread_detach() ?
-a)  
+a)  pthread_exit() is a function called by the thread itself, if the execution of a program is complete and it wants to retun and kill
+    the thread.
+    pthread_detach() function is called from any where as long as the thread id is available, it tells the system not to 
+    keep the thread resources available after the thread has finished execution. 
 
 
 11) what is pthread_join() ?
@@ -59,6 +62,7 @@ a)  the signature of pthread_join() is:
     int pthread_join(pthread_t tId, void** val_ptr);
     when we do a pthread_join() on a thread is detached, any value that is needed by the caller is put in val_ptr by the thread
     and the calling function is blocked from execution till the called thread finishes its execution.
+    pthread_join() function is always called from caller thread.
 
 12) what will happen if we do not use pthread_join() function ?
 a)  if pthread_join() is not used then the main thread will finish execution with out waiting for the other threads, this will lead to
@@ -71,28 +75,104 @@ a)  if pthread_join() is not used then the main thread will finish execution wit
 
 14) what are the arguments passed to pthread_create() ?
  a) signature: int pthread_create(pthread_t* thread_id, const pthread_attr_t* attr, void* (*start)(void* ), void* arg);
-    thread_it        -> is the variable where thread_id is filled and sent back.
+    thread_id        -> is the variable where thread_id is filled and sent back.
     pthread_attr_t*  -> is the artibutes that are to be given to the thread.
-    start            -> is a function pointer that gets called when a thread is created.
+    start            -> is a function pointer that gets called when a thread is created, this function takes a void* and returns a void*.
     arg              -> is the arguments needed by that function.
 
     if the thread creation is succesfull then 0 is returned.
 
 15) what are the various thread states ?
  a) there are four major thread states:
-    READY - when thread starts.
+    READY - when thread is running, but has not done anything usefull yet, it may be just about to start, 
+            or it has just been created or it has just been unblocked.
     RUNNING - when the thread is executing the function it is passed in pthread_create call.
     BLOCKED - when the thread is waiting for a conditional value or a mutex.
-    TERMINATED - the thread has finshed execution, it has not been detached or joined, after which it is recycled.
+    TERMINATED - the thread has finshed execution, it has not been detached or joined, so the system resources are not claimed yet,
+                 but it is not doing anything usefull either, apart from waiting for pthread_join() or pthread_ditach().
 
+16) How do we pass arguments to the arguments to the thread function using pthread_create() ?
+ a) every function needs to have some input arguments, this can be achieved by creating a struct that has variables,
+    which act as an input to the called thread function, we pass the struct object as a void* pointer and when we
+    recieve it in the function we use reinterpret cast to conver it back to the struct type and use its data members as the 
+    input variables.
+    check test5.cpp
 
+17) How do you recieve result back from a thread function?
+ a) thread function returns a void* pointer, this has an object that contains the return value.
+    in the main thread where we are calling pthread_join() we pass a address to a pointer.
+    void* p;
+    pthread_join(thread_id, &p); // as the signature is void** value, since we want to pass the pointer by reference.
+
+    once we pthread_join is successfull, we use reinterpret_cast on the returned value and convert it into a struct we want, 
+    where the return value of the thread exists. 
+
+18) what are the memory issues with regards to all the functions?
+ a) pthread_detach() function on any thread frees the resources allocated to a thread as soon as the execution of the thread is complete.
+    pthread_join() also frees the the thread resourses by inherently detaching the thread.
+    pthread_exit() does not free the underlying resources.
+
+19) what is the difference between pthread_join() and pthread_detach() ?
+ a) int pthread_detach(pthread_t thread_id); is called when we do not care about what the thread is returning,
+    int pthread_join(pthread_t thread_id, void** value_ptr); is called when we want the return value as well as want to detach the thread.
+
+20) what exactly does a pthread_join() does to main thread ?
+ a) pthread_join effectively acts as a barrier, main thread cannot cross it and execute statements after it unless the thread it is 
+    waiting for dosent compleete its work.
+ 
+21) what happens if we create a threads using pthread_create() and detach them and exit main using return ?
+ a) the process will terminate as soon as the main exits via return and all the threads it created evaporate along with it.
+    pthread_detach() just informs the system to reclaim the memory as soon as the execution of the thread is complete, it has no 
+    control over how the main thread should behave.
+    if we want the main thread to wait till the thread execution is complete, we should use pthread_join().
     
+22) when is the thread in a ready state for the first time?
+ a) a thread is in ready state right after it is created using pthread_create() function. based on scheduling constraints a thread may
+    remain in that state for quite some time before it gets into running state.
+    There is no synchronization between the time pthread_create() returns the return value and the thread starts executing the function,
+    a thread might finish executing the function and reach terminate state long beofore the return value is genrated by pthread_create()
+    function.
 
-TO DO:
--------
-1) test the following scenarios
-   (a) create sub threads print values in them and exit main thread via return
-   (b) create sub threads, use pthread_join() and see what happens to sub threads
-   (c) create sub threads, use pthread_detach() on all of them and then exit main via return.
-   (d) create sub threads, use pthread_exit() on the main thread and see how execution happens.
+23) what is the difference between ready and blocked state?
+ a) a ready state is when the thread is ready to execute but is not, because of unavilability of system resources or other reasons,
+    a blocked state is when the thread has attempted to lock a mutex and the mutex is already locked, and is waiting for a go ahead
+    from the condition variable, as soon as the signal is recieved, the thread moves from blocked to ready state again, and will 
+    move to running status based on avilability of system resources.
 
+24) when does a thread terminate?
+ a) a thread terminates when it returns from the start function that it was assigned to in pthread_create() function.
+    
+25) what is a zombie thread?
+ a) a thread when is detached, by using pthread_detach() or by pthread_join() functions, immideately releases all its resources to the
+    system which recycles them for a new thread.
+    when the thread is not detached but has succesfully terminated, it still holds all the thread specific data and resources and will
+    be waiting to join another thread, here the thread is neither dead nor is running, hence it is called a zombie thread.
+
+26) are zombie threads a good thing?
+ a) zombie threads hoard system resources, they should be detached and recycled as soon as possible.
+
+27) How to you create a thread, that you do not care to join?
+ a) a thread that we do not care to join later can be achieved by using pthread_create() and pthread_detach() functions in succession on
+    the returned thread id of pthread_create() , alternately we can pass the detach state in the pthread_attributes in pthread_create()
+    function itself, then the thread get created in detached state to begin with. and calling pthread_detach() function woudnt be nessasary.
+
+28) what is pthread_cancel() ? how does it differ from the rest ?
+ a) pthread_cancel() function terminates the thread long before it finishes what it is meant to do, only difference between pthread_cancel()
+    and pthread_exit(), that is when the program exits normally, is in the return value, instead of returning some value into pthread_join()
+    The cancelled thread retuns PTHREAD_CANCELLED as value.
+    only based on this value we will ever know if the thread was cancelled or it terminated on its own accord.
+
+29) what is the thing needs to be remebered for returned value?
+ a) we need to rember that by the time pthread_join() collects the return value from the terminated thread, the thread might be recycled
+    and the return value might be pointing to something else.
+    so it is always advisable not to use the stack variable as a return value, use a global variable or create a variable on heap, this 
+    will ensure that the return value is alive long after the thread has been recycled.
+
+30) what are some ways of handling the return value?
+ a) as return value can never be a stack varibale, there are two ways of handling the return variable.
+    i) create a struct and pass it the pthread_create() function itself, which the thread function will fill it before exiting the 
+       function.
+   ii) use a global variable to pass the return value.
+  iii) pass a specific location to the thread that is created detached, and let the main thread use the return value, when suits.
+
+     
